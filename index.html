@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123158">
+  <meta name="description" content="粤港澳大湾区科技领军人才创新驱动中心，立足香港、东莞、深圳，服务科技人才引育、科技创新、产业孵化与湾区协同。">
+  <title>粤港澳大湾区科技领军人才创新驱动中心</title>
+  <style>
+    :root {
+      --primary: #123158;
+      --primary-2: #1b4f7a;
+      --ink: #182334;
+      --muted: #66758a;
+      --line: #e6ebf1;
+      --surface: #f5f8fb;
+      --gold: #c59a2d;
+      --gold-2: #e1bf64;
+      --white: #fff;
+      --shadow: 0 18px 55px rgba(18, 49, 88, .13);
+      --radius: 8px;
+      --max: 1180px;
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: "Inter", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    ::selection { background: rgba(197, 154, 45, .22); }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before,
+    .eyebrow::after {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-2));
+    }
+    .eyebrow.left::after { display: none; }
+    .section {
+      padding: 92px 0;
+    }
+    .section-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 42px;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, .brand-title {
+      font-family: "Noto Serif SC", "Songti SC", SimSun, serif;
+    }
+    h2 {
+      margin-top: 14px;
+      color: var(--primary);
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+    .section-head p,
+    .intro p {
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 16px;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      transition: background .25s ease, box-shadow .25s ease;
+    }
+    .site-header.scrolled {
+      background: rgba(18, 49, 88, .96);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, .16);
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      font-family: "Noto Serif SC", serif;
+      font-weight: 800;
+      box-shadow: 0 10px 25px rgba(197, 154, 45, .28);
+      flex: 0 0 auto;
+    }
+    .brand-title {
+      color: var(--white);
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .brand-title span {
+      display: block;
+      color: var(--gold-2);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: rgba(255,255,255,.86);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .nav-links a {
+      position: relative;
+      padding: 8px 0;
+      transition: color .2s ease;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 1px;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width .2s ease;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .lang-btn {
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.06);
+      color: var(--gold-2);
+      border-radius: var(--radius);
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .menu-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      cursor: pointer;
+    }
+    .menu-btn span,
+    .menu-btn::before,
+    .menu-btn::after {
+      content: "";
+      display: block;
+      width: 20px;
+      height: 2px;
+      margin: 4px auto;
+      background: currentColor;
+      border-radius: 2px;
+    }
+
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      display: grid;
+      align-items: center;
+      color: var(--white);
+      overflow: hidden;
+      background: var(--primary);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(10, 28, 52, .92) 0%, rgba(10, 28, 52, .78) 43%, rgba(10, 28, 52, .38) 74%, rgba(10, 28, 52, .5) 100%),
+        url("assets/gba-hero.png") center / cover no-repeat;
+      transform: scale(1.02);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 160px;
+      background: linear-gradient(0deg, rgba(18,49,88,.66), transparent);
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      padding: 116px 0 70px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .75fr);
+      gap: 58px;
+      align-items: end;
+    }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 13px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .hero-kicker i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold-2);
+      box-shadow: 0 0 0 5px rgba(225,191,100,.14);
+    }
+    .hero h1 {
+      margin-top: 28px;
+      max-width: 780px;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 1.08;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+    .gold-text {
+      color: var(--gold-2);
+    }
+    .hero-copy {
+      margin-top: 24px;
+      max-width: 660px;
+      color: rgba(255,255,255,.78);
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.8;
+    }
+    .hero-actions {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .btn {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: var(--radius);
+      padding: 12px 20px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      transition: transform .2s ease, background .2s ease, border .2s ease;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      color: #102846;
+      box-shadow: 0 16px 36px rgba(197,154,45,.26);
+    }
+    .btn-ghost {
+      color: var(--white);
+      border-color: rgba(255,255,255,.28);
+      background: rgba(255,255,255,.07);
+    }
+    .stat-panel {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .stat-card {
+      min-height: 146px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(14px);
+    }
+    .stat-card strong {
+      display: block;
+      color: var(--gold-2);
+      font-size: 34px;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-card span {
+      display: block;
+      margin-top: 12px;
+      color: rgba(255,255,255,.84);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .stat-card small {
+      color: rgba(255,255,255,.48);
+      font-size: 12px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: .84fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .profile-card,
+    .service-card,
+    .news-card,
+    .contact-card,
+    .form-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: 0 10px 32px rgba(18,49,88,.06);
+    }
+    .profile-card {
+      position: relative;
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      inset: -14px;
+      z-index: -1;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(197,154,45,.16), rgba(18,49,88,.06));
+    }
+    .profile-head {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 26px;
+    }
+    .avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      font-size: 28px;
+      font-family: "Noto Serif SC", serif;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+    .profile-head h3 {
+      color: var(--primary);
+      font-size: 25px;
+      font-family: "Noto Serif SC", serif;
+      margin-bottom: 7px;
+    }
+    .profile-head p {
+      color: var(--gold);
+      font-weight: 800;
+    }
+    .profile-list,
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 14px;
+    }
+    .profile-list li,
+    .contact-list li {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 15px;
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      margin-top: 9px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .profile-meta {
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .intro h2 { margin-bottom: 22px; }
+    .intro p + p { margin-top: 18px; }
+    .value-row {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .value-row div {
+      padding: 18px 12px;
+      text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--primary);
+      font-weight: 900;
+    }
+    .value-row span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .surface { background: var(--surface); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .service-card {
+      padding: 28px;
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      background: rgba(18,49,88,.07);
+      color: var(--primary);
+      margin-bottom: 22px;
+    }
+    .service-card:nth-child(even) .service-icon {
+      background: rgba(197,154,45,.13);
+      color: #9c741b;
+    }
+    .service-card h3 {
+      color: var(--primary);
+      font-size: 21px;
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 14px;
+      min-height: 74px;
+    }
+    .service-card a {
+      display: inline-flex;
+      margin-top: 18px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .news-top {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+    .news-top h2 { margin-top: 12px; }
+    .more {
+      color: var(--primary);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+    .news-card {
+      overflow: hidden;
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+    .news-media {
+      aspect-ratio: 16 / 10;
+      position: relative;
+      background: linear-gradient(135deg, rgba(18,49,88,.1), rgba(197,154,45,.08));
+      display: grid;
+      place-items: center;
+      color: rgba(18,49,88,.28);
+    }
+    .tag {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: #102846;
+      background: var(--gold-2);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .news-body {
+      padding: 20px;
+    }
+    .news-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      color: #8793a3;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .news-body h3 {
+      color: var(--primary);
+      font-size: 18px;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+    .news-body p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .partners {
+      color: var(--white);
+      background:
+        linear-gradient(rgba(18,49,88,.94), rgba(18,49,88,.94)),
+        url("assets/gba-hero.png") center / cover no-repeat;
+      overflow: hidden;
+    }
+    .partners h2 { color: var(--white); }
+    .partners .section-head p { color: rgba(255,255,255,.58); }
+    .partner-track-wrap {
+      position: relative;
+      margin-top: 8px;
+    }
+    .partner-track-wrap::before,
+    .partner-track-wrap::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .partner-track-wrap::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--primary), transparent);
+    }
+    .partner-track-wrap::after {
+      right: 0;
+      background: linear-gradient(270deg, var(--primary), transparent);
+    }
+    .partner-track {
+      display: flex;
+      gap: 42px;
+      width: max-content;
+      animation: scroll 26s linear infinite;
+    }
+    .partner {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,.42);
+      font-size: 21px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    @keyframes scroll {
+      to { transform: translateX(-50%); }
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .74fr 1.26fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .contact-card,
+    .form-card { padding: 30px; }
+    .contact-card h3,
+    .form-card h3 {
+      color: var(--primary);
+      font-size: 20px;
+      margin-bottom: 22px;
+    }
+    .contact-list li {
+      grid-template-columns: 42px 1fr;
+      align-items: start;
+    }
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      color: var(--primary);
+      background: rgba(18,49,88,.07);
+    }
+    .contact-list strong {
+      display: block;
+      color: var(--primary);
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+    .contact-list a:hover { color: var(--gold); }
+    form {
+      display: grid;
+      gap: 18px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #37465a;
+      font-size: 14px;
+      font-weight: 800;
+    }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid #dce3ec;
+      border-radius: var(--radius);
+      padding: 12px 13px;
+      color: var(--ink);
+      background: var(--white);
+      outline: 0;
+      font-size: 16px;
+      transition: border .2s ease, box-shadow .2s ease;
+    }
+    textarea { resize: vertical; min-height: 118px; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(197,154,45,.14);
+    }
+    .submit-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .form-note {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .site-footer {
+      color: rgba(255,255,255,.74);
+      background: #0d2849;
+      padding: 52px 0 28px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.25fr .8fr .9fr 1fr;
+      gap: 36px;
+    }
+    .footer-brand p {
+      margin-top: 18px;
+      color: rgba(255,255,255,.52);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .footer-title {
+      color: var(--white);
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .footer-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+      color: rgba(255,255,255,.58);
+      font-size: 14px;
+    }
+    .footer-list a:hover { color: var(--gold-2); }
+    .footer-bottom {
+      margin-top: 40px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      color: rgba(255,255,255,.42);
+      font-size: 13px;
+    }
+
+    .fade {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .icon {
+      width: 25px;
+      height: 25px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .icon-fill {
+      width: 25px;
+      height: 25px;
+      fill: currentColor;
+    }
+
+    @media (max-width: 980px) {
+      .nav-links {
+        position: fixed;
+        inset: 76px 16px auto;
+        display: none;
+        padding: 18px;
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: var(--radius);
+        background: rgba(18,49,88,.98);
+        box-shadow: 0 18px 55px rgba(0,0,0,.22);
+      }
+      .nav-links.open {
+        display: grid;
+        gap: 6px;
+      }
+      .nav-links a,
+      .lang-btn {
+        width: 100%;
+        text-align: left;
+        padding: 12px;
+      }
+      .menu-btn { display: block; }
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-grid {
+        gap: 34px;
+        align-items: center;
+      }
+      .services-grid,
+      .news-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 28px, var(--max)); }
+      .section { padding: 64px 0; }
+      .nav { height: 68px; }
+      .brand-mark { width: 38px; height: 38px; }
+      .brand-title { font-size: 13px; white-space: normal; }
+      .hero::before {
+        background:
+          linear-gradient(90deg, rgba(10, 28, 52, .94) 0%, rgba(10, 28, 52, .78) 100%),
+          url("assets/gba-hero.png") center / cover no-repeat;
+      }
+      .hero-grid { padding: 96px 0 46px; }
+      .hero h1 { font-size: 40px; }
+      .hero-copy { font-size: 16px; }
+      .hero-actions .btn { width: 100%; }
+      .stat-panel,
+      .services-grid,
+      .news-grid,
+      .form-row,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .stat-card { min-height: auto; }
+      .about-grid { gap: 42px; }
+      .profile-card,
+      .contact-card,
+      .form-card,
+      .service-card {
+        padding: 24px;
+      }
+      .value-row { grid-template-columns: 1fr; }
+      .news-top {
+        display: block;
+      }
+      .more {
+        display: inline-flex;
+        margin-top: 18px;
+      }
+      .partner {
+        font-size: 18px;
+      }
+      .partner-track-wrap::before,
+      .partner-track-wrap::after {
+        width: 54px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="siteHeader">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="返回首页">
+        <span class="brand-mark">湾</span>
+        <span class="brand-title">粤港澳大湾区科技领军人才<span>创新驱动中心</span></span>
+      </a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="打开导航菜单" aria-expanded="false"><span></span></button>
+      <nav class="nav-links" id="navLinks" aria-label="主导航">
+        <a href="#about">关于中心</a>
+        <a href="#services">核心业务</a>
+        <a href="#news">新闻动态</a>
+        <a href="#partners">合作伙伴</a>
+        <a href="#contact">联系我们</a>
+        <button class="lang-btn" type="button" id="langBtn">EN</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="首页首屏">
+      <div class="container hero-grid">
+        <div class="fade">
+          <div class="hero-kicker"><i></i> Greater Bay Area · Science & Technology</div>
+          <h1>汇聚湾区英才<br><span class="gold-text">驱动科技创新</span></h1>
+          <p class="hero-copy">立足香港、东莞、深圳三地，链接政产学研金服用多方资源，建设科技领军人才创新高地与产业协同平台。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#about">了解中心</a>
+            <a class="btn btn-ghost" href="#contact">联系合作</a>
+          </div>
+        </div>
+        <div class="stat-panel fade" aria-label="中心数据">
+          <div class="stat-card"><strong>500+</strong><span>科技领军人才<br><small>Leading Talents</small></span></div>
+          <div class="stat-card"><strong>100+</strong><span>创新孵化项目<br><small>Innovation Projects</small></span></div>
+          <div class="stat-card"><strong>3</strong><span>城市战略布局<br><small>HK · Dongguan · Shenzhen</small></span></div>
+          <div class="stat-card"><strong>50+</strong><span>战略合作伙伴<br><small>Strategic Partners</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <aside class="profile-card fade" aria-label="中心主任信息">
+          <div class="profile-head">
+            <div class="avatar">黄</div>
+            <div>
+              <h3>黄德玉</h3>
+              <p>主任 | Director</p>
+            </div>
+          </div>
+          <ul class="profile-list">
+            <li><span class="dot"></span><span>香港科技园共同企业加速基金 / 创新创业高级顾问</span></li>
+            <li><span class="dot"></span><span>香港会计师公会大湾区事务高级顾问</span></li>
+          </ul>
+          <div class="profile-meta">
+            <span>香港 · 东莞 · 深圳</span>
+            <a href="tel:076926381321">0769-2638 1321</a>
+            <a href="tel:18666488433">186 6648 8433</a>
+            <a href="mailto:huangmayidavid@qq.com">huangmayidavid@qq.com</a>
+          </div>
+        </aside>
+
+        <div class="intro fade">
+          <span class="eyebrow left">About Us</span>
+          <h2>关于中心</h2>
+          <p>粤港澳大湾区科技领军人才创新驱动中心立足国家战略，依托香港国际金融与科创优势，联动东莞制造业基础与深圳创新资源，构建科技人才交流、创新创业孵化与产业协同发展的综合服务平台。</p>
+          <p>中心以“汇聚英才、驱动创新、协同湾区”为使命，聚合政策、资本、产业、科研与专业服务资源，推动科技成果转化与人才项目落地。</p>
+          <div class="value-row" aria-label="使命愿景价值">
+            <div>使命<span>Mission</span></div>
+            <div>愿景<span>Vision</span></div>
+            <div>价值<span>Values</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section surface" id="services">
+      <div class="container">
+        <div class="section-head fade">
+          <span class="eyebrow">Core Business</span>
+          <h2>核心业务</h2>
+          <p>围绕人才、技术、产业、城市协同四个方向，服务大湾区科技创新与产业升级。</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card fade">
+            <div class="service-icon">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>人才引育</h3>
+            <p>引进全球科技领军人才，建设多层次人才培养与交流机制，形成大湾区人才蓄水池。</p>
+            <a href="#contact">Talent Development</a>
+          </article>
+          <article class="service-card fade">
+            <div class="service-icon">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.4-2.5A5 5 0 1 0 7.6 11.5C8.3 12.3 8.8 13 9 14"/><path d="M9 18h6"/><path d="M10 22h4"/><path d="M10 14h4v4h-4z"/></svg>
+            </div>
+            <h3>科技创新</h3>
+            <p>推动前沿技术研发、应用验证与成果转化，搭建产学研协同创新平台。</p>
+            <a href="#contact">Tech Innovation</a>
+          </article>
+          <article class="service-card fade">
+            <div class="service-icon">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M10 2v7.31"/><path d="M14 9.3V2"/><path d="M8.5 2h7"/><path d="M14 9.3a6 6 0 1 1-4 0"/><path d="M8 17h8"/></svg>
+            </div>
+            <h3>产业孵化</h3>
+            <p>提供项目筛选、商业化辅导、资本对接与场景落地服务，加速科技企业成长。</p>
+            <a href="#contact">Incubation</a>
+          </article>
+          <article class="service-card fade">
+            <div class="service-icon">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 0 20"/><path d="M12 2a15.3 15.3 0 0 0 0 20"/></svg>
+            </div>
+            <h3>湾区协同</h3>
+            <p>促进港澳与内地城市资源互通，构建政策、产业、资本与服务协同网络。</p>
+            <a href="#contact">GBA Synergy</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="news">
+      <div class="container">
+        <div class="news-top fade">
+          <div>
+            <span class="eyebrow left">News & Updates</span>
+            <h2>新闻动态</h2>
+          </div>
+          <a class="more" href="#contact">查看更多 →</a>
+        </div>
+        <div class="news-grid">
+          <article class="news-card fade">
+            <div class="news-media">
+              <span class="tag">中心要闻</span>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 22h16"/><path d="M6 18V6l6-4 6 4v12"/><path d="M10 22v-6h4v6"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M10 12h.01"/><path d="M14 12h.01"/></svg>
+            </div>
+            <div class="news-body">
+              <div class="news-meta"><span>2026-05-08</span><span>·</span><span>香港科技园</span></div>
+              <h3>中心与香港科技园签署战略合作协议</h3>
+              <p>双方将在企业加速、创新创业孵化及大湾区人才交流等领域开展合作。</p>
+            </div>
+          </article>
+          <article class="news-card fade">
+            <div class="news-media">
+              <span class="tag">政策解读</span>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3H5a2 2 0 0 0-2 2v14"/><path d="M8 21h11a2 2 0 0 0 2-2V8"/><path d="M15 3v5h5"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
+            </div>
+            <div class="news-body">
+              <div class="news-meta"><span>2026-04-22</span><span>·</span><span>东莞</span></div>
+              <h3>大湾区人才新政发布，科技领军人才获重点支持</h3>
+              <p>政策覆盖创新创业、专业服务、生活配套与跨境协同等关键环节。</p>
+            </div>
+          </article>
+          <article class="news-card fade">
+            <div class="news-media">
+              <span class="tag">活动预告</span>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M3 10h18"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 15h.01"/><path d="M12 15h.01"/><path d="M16 15h.01"/></svg>
+            </div>
+            <div class="news-body">
+              <div class="news-meta"><span>2026-05-15</span><span>·</span><span>深圳</span></div>
+              <h3>2026大湾区科技领军人才峰会即将召开</h3>
+              <p>聚焦人工智能、生物医药、新能源与先进制造，推动项目合作与资本对接。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section partners" id="partners">
+      <div class="container">
+        <div class="section-head fade">
+          <span class="eyebrow">Partners</span>
+          <h2>合作伙伴</h2>
+          <p>携手共建大湾区科技创新生态圈</p>
+        </div>
+      </div>
+      <div class="partner-track-wrap" aria-label="合作伙伴列表">
+        <div class="partner-track">
+          <span class="partner">◆ 香港科技园</span>
+          <span class="partner">◆ 香港会计师公会</span>
+          <span class="partner">◆ 东莞市政府</span>
+          <span class="partner">◆ 深圳市科创委</span>
+          <span class="partner">◆ 大湾区共同家园</span>
+          <span class="partner">◆ 香港科技园</span>
+          <span class="partner">◆ 香港会计师公会</span>
+          <span class="partner">◆ 东莞市政府</span>
+          <span class="partner">◆ 深圳市科创委</span>
+          <span class="partner">◆ 大湾区共同家园</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section surface" id="contact">
+      <div class="container">
+        <div class="section-head fade">
+          <span class="eyebrow">Contact Us</span>
+          <h2>联系我们</h2>
+          <p>香港 · 东莞 · 深圳三地联动，欢迎咨询合作、项目孵化与人才服务。</p>
+        </div>
+        <div class="contact-grid">
+          <aside class="contact-card fade">
+            <h3>联系方式</h3>
+            <ul class="contact-list">
+              <li><span class="contact-icon">⌖</span><span><strong>三地布局</strong>香港 · 东莞 · 深圳<br>Hong Kong · Dongguan · Shenzhen</span></li>
+              <li><span class="contact-icon">☎</span><span><strong>座机电话</strong><a href="tel:076926381321">0769-2638 1321</a></span></li>
+              <li><span class="contact-icon">▣</span><span><strong>手机号码</strong><a href="tel:18666488433">186 6648 8433</a></span></li>
+              <li><span class="contact-icon">@</span><span><strong>电子邮箱</strong><a href="mailto:huangmayidavid@qq.com">huangmayidavid@qq.com</a></span></li>
+            </ul>
+          </aside>
+          <section class="form-card fade">
+            <h3>在线咨询</h3>
+            <form id="contactForm">
+              <div class="form-row">
+                <div>
+                  <label for="name">姓名 *</label>
+                  <input id="name" name="name" type="text" autocomplete="name" required placeholder="请输入您的姓名">
+                </div>
+                <div>
+                  <label for="phone">联系电话</label>
+                  <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="请输入联系电话">
+                </div>
+              </div>
+              <div>
+                <label for="email">电子邮箱 *</label>
+                <input id="email" name="email" type="email" autocomplete="email" required placeholder="请输入电子邮箱">
+              </div>
+              <div>
+                <label for="topic">咨询类型</label>
+                <select id="topic" name="topic">
+                  <option>人才引育咨询</option>
+                  <option>科技创新合作</option>
+                  <option>产业孵化服务</option>
+                  <option>湾区协同交流</option>
+                  <option>其他</option>
+                </select>
+              </div>
+              <div>
+                <label for="message">留言内容 *</label>
+                <textarea id="message" name="message" required placeholder="请描述您的需求或问题"></textarea>
+              </div>
+              <div class="submit-row">
+                <button class="btn btn-primary" type="submit">提交咨询</button>
+                <span class="form-note" id="formNote">提交后将打开邮件客户端，便于您发送咨询内容。</span>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#top">
+            <span class="brand-mark">湾</span>
+            <span class="brand-title">粤港澳大湾区<span>科技领军人才创新驱动中心</span></span>
+          </a>
+          <p>汇聚湾区英才，驱动科技创新。立足香港、东莞、深圳，打造具有国际视野的人才创新服务平台。</p>
+        </div>
+        <div>
+          <div class="footer-title">快速链接</div>
+          <ul class="footer-list">
+            <li><a href="#about">关于中心</a></li>
+            <li><a href="#services">核心业务</a></li>
+            <li><a href="#news">新闻动态</a></li>
+            <li><a href="#partners">合作伙伴</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-title">业务领域</div>
+          <ul class="footer-list">
+            <li><a href="#services">人才引育计划</a></li>
+            <li><a href="#services">科技创新平台</a></li>
+            <li><a href="#services">企业孵化服务</a></li>
+            <li><a href="#services">湾区协同网络</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-title">联系方式</div>
+          <ul class="footer-list">
+            <li>香港 · 东莞 · 深圳</li>
+            <li><a href="tel:076926381321">0769-2638 1321</a></li>
+            <li><a href="mailto:huangmayidavid@qq.com">huangmayidavid@qq.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 粤港澳大湾区科技领军人才创新驱动中心</span>
+        <span>隐私政策 · 使用条款</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById("siteHeader");
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+    const langBtn = document.getElementById("langBtn");
+    const contactForm = document.getElementById("contactForm");
+
+    function syncHeader() {
+      header.classList.toggle("scrolled", window.scrollY > 24);
+    }
+
+    window.addEventListener("scroll", syncHeader, { passive: true });
+    syncHeader();
+
+    menuBtn.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", String(open));
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    langBtn.addEventListener("click", () => {
+      alert("英文版本即将上线 / English version coming soon");
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+
+    document.querySelectorAll(".fade").forEach((el) => observer.observe(el));
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(contactForm);
+      const subject = encodeURIComponent("官网咨询 - " + data.get("topic"));
+      const body = encodeURIComponent(
+        "姓名：" + data.get("name") + "\n" +
+        "电话：" + (data.get("phone") || "未填写") + "\n" +
+        "邮箱：" + data.get("email") + "\n" +
+        "咨询类型：" + data.get("topic") + "\n\n" +
+        "留言内容：\n" + data.get("message")
+      );
+      window.location.href = "mailto:huangmayidavid@qq.com?subject=" + subject + "&body=" + body;
+    });
+  </script>
+</body>
+</html>
