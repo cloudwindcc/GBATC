@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#123158">
   <meta name="description" content="粤港澳大湾区科技领军人才创新驱动中心（简称 GBATC），立足湾区、联动世界，服务科技人才引育、科技创新、产业孵化与湾区协同。">
+  <link rel="icon" href="assets/gbatc-logo.svg" type="image/svg+xml">
   <title>粤港澳大湾区科技领军人才创新驱动中心</title>
   <style>
     :root {
@@ -110,17 +111,19 @@
       min-width: 0;
     }
     .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: var(--radius);
-      display: grid;
-      place-items: center;
-      color: var(--white);
-      background: linear-gradient(135deg, var(--gold-2), var(--gold));
-      font-family: "Noto Serif SC", serif;
-      font-weight: 800;
-      box-shadow: 0 10px 25px rgba(197, 154, 45, .28);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: block;
+      overflow: hidden;
+      background: #123158;
+      box-shadow: 0 14px 32px rgba(7, 25, 46, .32);
       flex: 0 0 auto;
+    }
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
     .brand-title {
       color: var(--white);
@@ -879,7 +882,7 @@
   <header class="site-header" id="siteHeader">
     <div class="container nav">
       <a class="brand" href="#top" aria-label="返回首页">
-        <span class="brand-mark">湾</span>
+        <span class="brand-mark"><img src="assets/gbatc-logo.svg" alt="" aria-hidden="true"></span>
         <span class="brand-title">粤港澳大湾区科技领军人才<span>创新驱动中心</span></span>
       </a>
       <button class="menu-btn" id="menuBtn" type="button" aria-label="打开导航菜单" aria-expanded="false"><span></span></button>
@@ -1189,7 +1192,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a class="brand" href="#top">
-            <span class="brand-mark">湾</span>
+            <span class="brand-mark"><img src="assets/gbatc-logo.svg" alt="" aria-hidden="true"></span>
             <span class="brand-title">粤港澳大湾区<span>科技领军人才创新驱动中心</span></span>
           </a>
           <p>汇聚全球领军，助力湾区发展。立足湾区、联动世界，服务粤港澳大湾区高水平人才高地和国际科创中心建设。</p>

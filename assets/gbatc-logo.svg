@@ -1,0 +1,33 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>GBATC logo</title>
+  <defs>
+    <linearGradient id="navy" x1="40" y1="32" x2="216" y2="224" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#16416F"/>
+      <stop offset="0.55" stop-color="#123158"/>
+      <stop offset="1" stop-color="#0A203B"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="55" y1="172" x2="201" y2="74" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B88622"/>
+      <stop offset="0.5" stop-color="#E1BF64"/>
+      <stop offset="1" stop-color="#F4D680"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="78" y1="70" x2="184" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#BFD1E4"/>
+    </linearGradient>
+  </defs>
+  <rect x="16" y="16" width="224" height="224" rx="48" fill="url(#navy)"/>
+  <rect x="24" y="24" width="208" height="208" rx="40" stroke="url(#gold)" stroke-opacity="0.65" stroke-width="3"/>
+  <path d="M62 160C88 103 138 75 198 83" stroke="url(#gold)" stroke-width="14" stroke-linecap="round"/>
+  <path d="M72 176C102 143 138 126 184 122" stroke="url(#silver)" stroke-width="7" stroke-linecap="round" stroke-opacity="0.92"/>
+  <path d="M82 176L132 129L191 84" stroke="#E1BF64" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.76"/>
+  <circle cx="82" cy="176" r="13" fill="#E1BF64"/>
+  <circle cx="132" cy="129" r="13" fill="#FFFFFF"/>
+  <circle cx="191" cy="84" r="13" fill="#E1BF64"/>
+  <circle cx="82" cy="176" r="5" fill="#123158"/>
+  <circle cx="132" cy="129" r="5" fill="#123158"/>
+  <circle cx="191" cy="84" r="5" fill="#123158"/>
+  <path d="M82 176H174C189 176 201 164 201 149V134" stroke="#F4D680" stroke-width="8" stroke-linecap="round"/>
+  <path d="M104 199H168" stroke="#FFFFFF" stroke-opacity="0.72" stroke-width="6" stroke-linecap="round"/>
+  <path d="M118 57L140 57L155 88L103 88L118 57Z" fill="url(#gold)" fill-opacity="0.95"/>
+</svg>
