@@ -773,6 +773,81 @@
       color: rgba(255,255,255,.42);
       font-size: 13px;
     }
+    .footer-legal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .legal-link {
+      border: 0;
+      padding: 0;
+      color: rgba(255,255,255,.48);
+      background: transparent;
+      cursor: pointer;
+      font: inherit;
+      transition: color .2s ease;
+    }
+    .legal-link:hover { color: var(--gold-2); }
+    .legal-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(9, 24, 43, .64);
+      backdrop-filter: blur(8px);
+    }
+    .legal-modal.open { display: flex; }
+    .legal-dialog {
+      width: min(680px, 100%);
+      max-height: min(78svh, 720px);
+      overflow: auto;
+      border-radius: 12px;
+      background: var(--white);
+      box-shadow: 0 28px 80px rgba(0,0,0,.3);
+    }
+    .legal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 24px 26px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .legal-head h3 {
+      color: var(--primary);
+      font-size: 22px;
+    }
+    .legal-close {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: var(--radius);
+      color: var(--primary);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 22px;
+      line-height: 1;
+    }
+    .legal-body {
+      padding: 22px 26px 28px;
+      color: #43536a;
+      font-size: 14px;
+      line-height: 1.78;
+    }
+    .legal-body ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+    .legal-body li + li { margin-top: 8px; }
+    .legal-date {
+      margin-top: 18px;
+      color: #8793a3;
+      font-size: 13px;
+    }
 
     .fade {
       opacity: 0;
@@ -898,6 +973,11 @@
       }
       .footer-bottom {
         flex-direction: column;
+      }
+      .legal-head,
+      .legal-body {
+        padding-left: 20px;
+        padding-right: 20px;
       }
     }
   </style>
@@ -1268,10 +1348,24 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 粤港澳大湾区科技领军人才创新驱动中心</span>
-        <span>隐私政策 · 使用条款</span>
+        <span class="footer-legal">
+          <button class="legal-link" type="button" data-legal="privacy">隐私政策</button>
+          <span>·</span>
+          <button class="legal-link" type="button" data-legal="terms">使用条款</button>
+        </span>
       </div>
     </div>
   </footer>
+
+  <div class="legal-modal" id="legalModal" aria-hidden="true">
+    <div class="legal-dialog" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
+      <div class="legal-head">
+        <h3 id="legalTitle"></h3>
+        <button class="legal-close" type="button" id="legalClose" aria-label="关闭">×</button>
+      </div>
+      <div class="legal-body" id="legalBody"></div>
+    </div>
+  </div>
 
   <script>
     const header = document.getElementById("siteHeader");
@@ -1279,6 +1373,10 @@
     const navLinks = document.getElementById("navLinks");
     const langButtons = document.querySelectorAll("[data-lang]");
     const contactForm = document.getElementById("contactForm");
+    const legalModal = document.getElementById("legalModal");
+    const legalTitle = document.getElementById("legalTitle");
+    const legalBody = document.getElementById("legalBody");
+    const legalClose = document.getElementById("legalClose");
     let currentLang = "zh-CN";
 
     function syncHeader() {
@@ -1428,7 +1526,9 @@
         "东莞松山湖高新区": "東莞松山湖高新區",
         "东莞滨海湾新区": "東莞濱海灣新區",
         "© 2026 粤港澳大湾区科技领军人才创新驱动中心": "© 2026 粵港澳大灣區科技領軍人才創新驅動中心",
-        "隐私政策 · 使用条款": "私隱政策 · 使用條款",
+        "隐私政策": "私隱政策",
+        "使用条款": "使用條款",
+        "关闭": "關閉",
         "返回首页": "返回首頁",
         "打开导航菜单": "打開導航選單",
         "主导航": "主導航",
@@ -1564,7 +1664,9 @@
         "东莞松山湖高新区": "Dongguan Songshan Lake Hi-Tech Zone",
         "东莞滨海湾新区": "Dongguan Binhaiwan Bay Area",
         "© 2026 粤港澳大湾区科技领军人才创新驱动中心": "© 2026 Greater Bay Area Tech Talent Innovation-Driven Center",
-        "隐私政策 · 使用条款": "Privacy Policy · Terms of Use",
+        "隐私政策": "Privacy Policy",
+        "使用条款": "Terms of Use",
+        "关闭": "Close",
         "返回首页": "Back to top",
         "打开导航菜单": "Open navigation menu",
         "主导航": "Main navigation",
@@ -1633,6 +1735,87 @@
       }
     };
 
+    const legalContent = {
+      "zh-CN": {
+        privacy: {
+          title: "隐私政策",
+          intro: "我们重视访问者和合作伙伴的隐私。本政策说明本网站在提供资讯、合作咨询和联系服务时可能涉及的信息处理方式。",
+          items: [
+            "我们仅在您主动提交在线咨询、发送邮件或拨打电话时接收姓名、联系方式、邮箱、咨询类型和留言内容。",
+            "相关信息仅用于回应咨询、推进合作沟通、项目对接和中心服务管理。",
+            "我们不会出售、出租或公开披露您的个人信息；如因法律法规或合规要求需要提供，将按要求处理。",
+            "网站可能使用基础访问统计或浏览器本地存储来记住语言偏好，不用于识别个人身份。",
+            "如需查询、更正或删除您提交的信息，可通过 David.Huang@GBATC.org 联系我们。"
+          ],
+          date: "更新日期：2026年5月"
+        },
+        terms: {
+          title: "使用条款",
+          intro: "访问和使用本网站，即表示您理解并同意以下条款。本网站内容用于展示中心信息、新闻动态、合作伙伴和联系方式。",
+          items: [
+            "网站内容仅供一般信息参考，不构成任何投资、法律、财务或专业意见。",
+            "我们会尽力保持内容准确和及时，但不保证所有信息在任何时间均完整、最新或无误。",
+            "网站中链接至第三方平台或机构官网的内容，由相关第三方负责维护。",
+            "未经许可，不得将本网站内容用于误导性宣传、商业冒用或损害中心声誉的用途。",
+            "我们可根据业务和合规需要适时更新网站内容、隐私政策和使用条款。"
+          ],
+          date: "更新日期：2026年5月"
+        }
+      },
+      "zh-Hant": {
+        privacy: {
+          title: "私隱政策",
+          intro: "我們重視訪問者和合作夥伴的私隱。本政策說明本網站在提供資訊、合作諮詢和聯絡服務時可能涉及的資訊處理方式。",
+          items: [
+            "我們僅在您主動提交線上諮詢、發送郵件或撥打電話時接收姓名、聯絡方式、郵箱、諮詢類型和留言內容。",
+            "相關資訊僅用於回應諮詢、推進合作溝通、項目對接和中心服務管理。",
+            "我們不會出售、出租或公開披露您的個人資訊；如因法律法規或合規要求需要提供，將按要求處理。",
+            "網站可能使用基礎訪問統計或瀏覽器本地儲存來記住語言偏好，不用於識別個人身份。",
+            "如需查詢、更正或刪除您提交的資訊，可通過 David.Huang@GBATC.org 聯絡我們。"
+          ],
+          date: "更新日期：2026年5月"
+        },
+        terms: {
+          title: "使用條款",
+          intro: "訪問和使用本網站，即表示您理解並同意以下條款。本網站內容用於展示中心資訊、新聞動態、合作夥伴和聯絡方式。",
+          items: [
+            "網站內容僅供一般資訊參考，不構成任何投資、法律、財務或專業意見。",
+            "我們會盡力保持內容準確和及時，但不保證所有資訊在任何時間均完整、最新或無誤。",
+            "網站中連結至第三方平台或機構官網的內容，由相關第三方負責維護。",
+            "未經許可，不得將本網站內容用於誤導性宣傳、商業冒用或損害中心聲譽的用途。",
+            "我們可根據業務和合規需要適時更新網站內容、私隱政策和使用條款。"
+          ],
+          date: "更新日期：2026年5月"
+        }
+      },
+      en: {
+        privacy: {
+          title: "Privacy Policy",
+          intro: "We respect the privacy of visitors and partners. This policy explains how this website handles information when providing updates, cooperation enquiries and contact services.",
+          items: [
+            "We receive your name, contact details, email address, enquiry type and message only when you submit an enquiry, send an email or contact us directly.",
+            "Such information is used only to respond to enquiries, support cooperation discussions, project matching and center service management.",
+            "We do not sell, rent or publicly disclose your personal information. If disclosure is required by law or compliance obligations, we will handle it accordingly.",
+            "The website may use basic analytics or local browser storage to remember language preferences. These are not used to identify individuals.",
+            "To request access, correction or deletion of submitted information, contact us at David.Huang@GBATC.org."
+          ],
+          date: "Updated: May 2026"
+        },
+        terms: {
+          title: "Terms of Use",
+          intro: "By accessing and using this website, you acknowledge the following terms. The website presents information about the center, news, partners and contact channels.",
+          items: [
+            "Website content is for general information only and does not constitute investment, legal, financial or professional advice.",
+            "We strive to keep information accurate and timely, but do not guarantee that all content is complete, current or error-free at all times.",
+            "Third-party websites linked from this site are maintained by their respective organizations.",
+            "Without permission, website content may not be used for misleading promotion, commercial impersonation or activities that damage the center's reputation.",
+            "We may update website content, the privacy policy and terms of use from time to time for business or compliance reasons."
+          ],
+          date: "Updated: May 2026"
+        }
+      }
+    };
+
     const textNodes = [];
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
@@ -1663,6 +1846,31 @@
       return translations[lang]?.[base] || base;
     }
 
+    function renderLegal(type) {
+      const content = legalContent[currentLang]?.[type] || legalContent["zh-CN"][type];
+      legalModal.dataset.type = type;
+      legalTitle.textContent = content.title;
+      legalBody.innerHTML = `
+        <p>${content.intro}</p>
+        <ul>${content.items.map((item) => `<li>${item}</li>`).join("")}</ul>
+        <p class="legal-date">${content.date}</p>
+      `;
+    }
+
+    function openLegal(type) {
+      renderLegal(type);
+      legalModal.classList.add("open");
+      legalModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      legalClose.focus();
+    }
+
+    function closeLegal() {
+      legalModal.classList.remove("open");
+      legalModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
     function applyLanguage(lang) {
       if (!metaContent[lang]) lang = "zh-CN";
       currentLang = lang;
@@ -1688,6 +1896,9 @@
       langButtons.forEach((button) => {
         button.classList.toggle("active", button.dataset.lang === lang);
       });
+      if (legalModal.classList.contains("open")) {
+        renderLegal(legalModal.dataset.type || "privacy");
+      }
       localStorage.setItem("gbatc-lang", lang);
     }
 
@@ -1700,6 +1911,18 @@
     });
 
     applyLanguage(localStorage.getItem("gbatc-lang") || "zh-CN");
+
+    document.querySelectorAll("[data-legal]").forEach((button) => {
+      button.addEventListener("click", () => openLegal(button.dataset.legal));
+    });
+
+    legalClose.addEventListener("click", closeLegal);
+    legalModal.addEventListener("click", (event) => {
+      if (event.target === legalModal) closeLegal();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && legalModal.classList.contains("open")) closeLegal();
+    });
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
