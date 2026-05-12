@@ -164,14 +164,29 @@
     }
     .nav-links a:hover { color: var(--white); }
     .nav-links a:hover::after { width: 100%; }
-    .lang-btn {
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
       border: 1px solid rgba(255,255,255,.22);
       background: rgba(255,255,255,.06);
-      color: var(--gold-2);
       border-radius: var(--radius);
-      padding: 8px 12px;
+      padding: 3px;
+    }
+    .lang-option {
+      border: 0;
+      border-radius: 6px;
+      padding: 6px 9px;
+      color: rgba(255,255,255,.74);
+      background: transparent;
       cursor: pointer;
       font-weight: 700;
+      font-size: 12px;
+      line-height: 1;
+    }
+    .lang-option.active {
+      color: #102846;
+      background: var(--gold-2);
     }
     .menu-btn {
       display: none;
@@ -798,11 +813,20 @@
         display: grid;
         gap: 6px;
       }
-      .nav-links a,
-      .lang-btn {
+      .nav-links a {
         width: 100%;
         text-align: left;
         padding: 12px;
+      }
+      .lang-switch {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        width: 100%;
+        margin-top: 6px;
+      }
+      .lang-option {
+        padding: 11px 8px;
+        text-align: center;
       }
       .menu-btn { display: block; }
       .hero-grid,
@@ -892,7 +916,11 @@
         <a href="#news">新闻动态</a>
         <a href="#partners">合作伙伴</a>
         <a href="#contact">联系我们</a>
-        <button class="lang-btn" type="button" id="langBtn">EN</button>
+        <div class="lang-switch" aria-label="语言切换">
+          <button class="lang-option active" type="button" data-lang="zh-CN">简体</button>
+          <button class="lang-option" type="button" data-lang="zh-Hant">繁體</button>
+          <button class="lang-option" type="button" data-lang="en">EN</button>
+        </div>
       </nav>
     </div>
   </header>
@@ -1249,8 +1277,9 @@
     const header = document.getElementById("siteHeader");
     const menuBtn = document.getElementById("menuBtn");
     const navLinks = document.getElementById("navLinks");
-    const langBtn = document.getElementById("langBtn");
+    const langButtons = document.querySelectorAll("[data-lang]");
     const contactForm = document.getElementById("contactForm");
+    let currentLang = "zh-CN";
 
     function syncHeader() {
       header.classList.toggle("scrolled", window.scrollY > 24);
@@ -1271,9 +1300,406 @@
       });
     });
 
-    langBtn.addEventListener("click", () => {
-      alert("英文版本即将上线 / English version coming soon");
+    const translations = {
+      "zh-Hant": {
+        "粤港澳大湾区科技领军人才创新驱动中心": "粵港澳大灣區科技領軍人才創新驅動中心",
+        "粤港澳大湾区科技领军人才": "粵港澳大灣區科技領軍人才",
+        "创新驱动中心": "創新驅動中心",
+        "关于中心": "關於中心",
+        "核心业务": "核心業務",
+        "新闻动态": "新聞動態",
+        "合作伙伴": "合作夥伴",
+        "联系我们": "聯絡我們",
+        "Greater Bay Area Talent Center": "大灣區人才中心",
+        "Leading Talents": "領軍人才",
+        "Innovation Projects": "創新項目",
+        "Strategic Partners": "戰略合作夥伴",
+        "About Us": "關於我們",
+        "Core Business": "核心業務",
+        "News & Updates": "新聞動態",
+        "Partners": "合作夥伴",
+        "Contact Us": "聯絡我們",
+        "Talent Development": "人才引育",
+        "Tech Innovation": "科技創新",
+        "Incubation": "產業孵化",
+        "GBA Synergy": "灣區協同",
+        "汇聚全球领军": "匯聚全球領軍",
+        "助力湾区发展": "助力灣區發展",
+        "立足湾区、联动世界，助力粤港澳大湾区高水平人才高地和国际科创中心建设，助力高质量发展。": "立足灣區、聯動世界，助力粵港澳大灣區高水平人才高地和國際科創中心建設，助力高質量發展。",
+        "了解中心": "了解中心",
+        "联系合作": "聯絡合作",
+        "科技领军人才": "科技領軍人才",
+        "创新孵化项目": "創新孵化項目",
+        "城市战略布局": "城市戰略佈局",
+        "战略合作伙伴": "戰略合作夥伴",
+        "黄": "黃",
+        "黄德玉": "黃德玉",
+        "主任 | Director": "主任 | Director",
+        "香港科技园共同企业加速基金 / 创新创业高级顾问": "香港科技園共同企業加速基金 / 創新創業高級顧問",
+        "香港会计师公会大湾区事务高级顾问": "香港會計師公會大灣區事務高級顧問",
+        "香港 · 东莞 · 深圳": "香港 · 東莞 · 深圳",
+        "粤港澳大湾区科技领军人才创新驱动中心（简称 GBATC）立足国家战略，依托香港国际金融与科创优势，联动东莞制造业基础与深圳创新资源，构建科技人才交流、创新创业孵化与产业协同发展的综合服务平台。": "粵港澳大灣區科技領軍人才創新驅動中心（簡稱 GBATC）立足國家戰略，依託香港國際金融與科創優勢，聯動東莞製造業基礎與深圳創新資源，構建科技人才交流、創新創業孵化與產業協同發展的綜合服務平台。",
+        "中心以“汇聚英才、驱动创新、协同湾区”为使命，聚合政策、资本、产业、科研与专业服务资源，推动科技成果转化与人才项目落地。": "中心以「匯聚英才、驅動創新、協同灣區」為使命，聚合政策、資本、產業、科研與專業服務資源，推動科技成果轉化與人才項目落地。",
+        "使命": "使命",
+        "愿景": "願景",
+        "价值": "價值",
+        "围绕人才、技术、产业、城市协同四个方向，服务大湾区科技创新与产业升级。": "圍繞人才、技術、產業、城市協同四個方向，服務大灣區科技創新與產業升級。",
+        "人才引育": "人才引育",
+        "引进全球科技领军人才，建设多层次人才培养与交流机制，形成大湾区人才蓄水池。": "引進全球科技領軍人才，建設多層次人才培養與交流機制，形成大灣區人才蓄水池。",
+        "科技创新": "科技創新",
+        "推动前沿技术研发、应用验证与成果转化，搭建产学研协同创新平台。": "推動前沿技術研發、應用驗證與成果轉化，搭建產學研協同創新平台。",
+        "产业孵化": "產業孵化",
+        "提供项目筛选、商业化辅导、资本对接与场景落地服务，加速科技企业成长。": "提供項目篩選、商業化輔導、資本對接與場景落地服務，加速科技企業成長。",
+        "湾区协同": "灣區協同",
+        "促进港澳与内地城市资源互通，构建政策、产业、资本与服务协同网络。": "促進港澳與內地城市資源互通，構建政策、產業、資本與服務協同網絡。",
+        "查看更多 →": "查看更多 →",
+        "中心启动": "中心啟動",
+        "中国新闻网": "中國新聞網",
+        "粤港澳大湾区首个科技领军人才创新驱动中心启动": "粵港澳大灣區首個科技領軍人才創新驅動中心啟動",
+        "报道中心在东莞启动，并介绍科技部建设论证、湾区人才驱动平台定位及服务方向。": "報道中心在東莞啟動，並介紹科技部建設論證、灣區人才驅動平台定位及服務方向。",
+        "查看原文 →": "查看原文 →",
+        "莞港合作": "莞港合作",
+        "香港科技园": "香港科技園",
+        "莞港湾区创科加速交流会深化合作": "莞港灣區創科加速交流會深化合作",
+        "香港科技园与东莞市科学技术局及滨海湾合办交流会，推动联合孵化、AI 硬件创新与项目落地。": "香港科技園與東莞市科學技術局及濱海灣合辦交流會，推動聯合孵化、AI 硬件創新與項目落地。",
+        "政策背景": "政策背景",
+        "国务院新闻办": "國務院新聞辦",
+        "国新办发布会资料提供创新驱动政策背景": "國新辦發布會資料提供創新驅動政策背景",
+        "作为区域协同、创新驱动和产业升级的公开政策资料入口，为湾区科创合作提供背景参考。": "作為區域協同、創新驅動和產業升級的公開政策資料入口，為灣區科創合作提供背景參考。",
+        "专题报道": "專題報道",
+        "微信公众号": "微信公眾號",
+        "原文链接": "原文連結",
+        "微信公众号报道：湾区科技人才与创新合作动态": "微信公眾號報道：灣區科技人才與創新合作動態",
+        "聚焦湾区科技人才、科创资源对接及活动传播，展现湾区创新合作动态。": "聚焦灣區科技人才、科創資源對接及活動傳播，展現灣區創新合作動態。",
+        "博鳌推介": "博鰲推介",
+        "博鳌亚洲论坛国际科技与创新论坛香港会议举办东莞推介会": "博鰲亞洲論壇國際科技與創新論壇香港會議舉辦東莞推介會",
+        "东莞推介会联动滨海湾港澳 AIST 计划路演，展示莞港科创合作成果与项目资源。": "東莞推介會聯動濱海灣港澳 AIST 計劃路演，展示莞港科創合作成果與項目資源。",
+        "湾区报道": "灣區報道",
+        "南方+报道：东莞湾区科创合作活动": "南方+報道：東莞灣區科創合作活動",
+        "报道东莞与湾区科创资源联动，关注产业生态、项目孵化与人才交流。": "報道東莞與灣區科創資源聯動，關注產業生態、項目孵化與人才交流。",
+        "活动报道": "活動報道",
+        "微信公众号报道：莞港科创交流与项目对接": "微信公眾號報道：莞港科創交流與項目對接",
+        "关注莞港科创合作、企业服务与项目路演等活动进展，推动创新资源与产业场景对接。": "關注莞港科創合作、企業服務與項目路演等活動進展，推動創新資源與產業場景對接。",
+        "携手共建大湾区科技创新生态圈": "攜手共建大灣區科技創新生態圈",
+        "◆ 香港科技园": "◆ 香港科技園",
+        "◆ 香港交易所": "◆ 香港交易所",
+        "◆ 香港工业总会": "◆ 香港工業總會",
+        "◆ 香港会计师公会": "◆ 香港會計師公會",
+        "◆ 香港青年协会": "◆ 香港青年協會",
+        "◆ 香港电子业商会": "◆ 香港電子業商會",
+        "◆ 东莞市科学技术局": "◆ 東莞市科學技術局",
+        "◆ 东莞松山湖高新区": "◆ 東莞松山湖高新區",
+        "◆ 东莞滨海湾新区": "◆ 東莞濱海灣新區",
+        "香港 · 东莞 · 深圳三地联动，欢迎咨询合作、项目孵化与人才服务。": "香港 · 東莞 · 深圳三地聯動，歡迎諮詢合作、項目孵化與人才服務。",
+        "联系方式": "聯絡方式",
+        "三地布局": "三地佈局",
+        "座机电话": "座機電話",
+        "手机号码": "手機號碼",
+        "电子邮箱": "電子郵箱",
+        "在线咨询": "線上諮詢",
+        "姓名 *": "姓名 *",
+        "联系电话": "聯絡電話",
+        "电子邮箱 *": "電子郵箱 *",
+        "咨询类型": "諮詢類型",
+        "人才引育咨询": "人才引育諮詢",
+        "科技创新合作": "科技創新合作",
+        "产业孵化服务": "產業孵化服務",
+        "湾区协同交流": "灣區協同交流",
+        "其他": "其他",
+        "留言内容 *": "留言內容 *",
+        "提交咨询": "提交諮詢",
+        "提交后将打开邮件客户端，便于您发送咨询内容。": "提交後將開啟郵件客戶端，便於您發送諮詢內容。",
+        "粤港澳大湾区": "粵港澳大灣區",
+        "科技领军人才创新驱动中心": "科技領軍人才創新驅動中心",
+        "汇聚全球领军，助力湾区发展。立足湾区、联动世界，服务粤港澳大湾区高水平人才高地和国际科创中心建设。": "匯聚全球領軍，助力灣區發展。立足灣區、聯動世界，服務粵港澳大灣區高水平人才高地和國際科創中心建設。",
+        "快速链接": "快速連結",
+        "业务领域": "業務領域",
+        "人才引育计划": "人才引育計劃",
+        "科技创新平台": "科技創新平台",
+        "企业孵化服务": "企業孵化服務",
+        "湾区协同网络": "灣區協同網絡",
+        "合作伙伴官网": "合作夥伴官網",
+        "香港交易所": "香港交易所",
+        "香港工业总会": "香港工業總會",
+        "香港会计师公会": "香港會計師公會",
+        "香港青年协会": "香港青年協會",
+        "香港电子业商会": "香港電子業商會",
+        "东莞市科学技术局": "東莞市科學技術局",
+        "东莞松山湖高新区": "東莞松山湖高新區",
+        "东莞滨海湾新区": "東莞濱海灣新區",
+        "© 2026 粤港澳大湾区科技领军人才创新驱动中心": "© 2026 粵港澳大灣區科技領軍人才創新驅動中心",
+        "隐私政策 · 使用条款": "私隱政策 · 使用條款",
+        "返回首页": "返回首頁",
+        "打开导航菜单": "打開導航選單",
+        "主导航": "主導航",
+        "语言切换": "語言切換",
+        "首页首屏": "首頁首屏",
+        "中心数据": "中心數據",
+        "中心主任信息": "中心主任資訊",
+        "使命愿景价值": "使命願景價值",
+        "合作伙伴列表": "合作夥伴列表",
+        "粤港澳大湾区科技领军人才创新驱动中心启动报道": "粵港澳大灣區科技領軍人才創新驅動中心啟動報道",
+        "莞港湾区创科加速交流会报道": "莞港灣區創科加速交流會報道",
+        "国务院新闻办公室发布会资料": "國務院新聞辦公室發布會資料",
+        "微信公众号湾区科技人才报道": "微信公眾號灣區科技人才報道",
+        "博鳌亚洲论坛国际科技与创新论坛香港会议东莞推介会": "博鰲亞洲論壇國際科技與創新論壇香港會議東莞推介會",
+        "南方+东莞湾区科创合作报道": "南方+東莞灣區科創合作報道",
+        "微信公众号莞港科创交流报道": "微信公眾號莞港科創交流報道",
+        "请输入您的姓名": "請輸入您的姓名",
+        "请输入联系电话": "請輸入聯絡電話",
+        "请输入电子邮箱": "請輸入電子郵箱",
+        "请描述您的需求或问题": "請描述您的需求或問題"
+      },
+      en: {
+        "粤港澳大湾区科技领军人才创新驱动中心": "Greater Bay Area Tech Talent Innovation-Driven Center",
+        "粤港澳大湾区科技领军人才": "Greater Bay Area Tech Talent",
+        "创新驱动中心": "Innovation-Driven Center",
+        "关于中心": "About",
+        "核心业务": "Services",
+        "新闻动态": "News",
+        "合作伙伴": "Partners",
+        "联系我们": "Contact",
+        "汇聚全球领军": "Gather Global Leaders",
+        "助力湾区发展": "Empower the Greater Bay Area",
+        "立足湾区、联动世界，助力粤港澳大湾区高水平人才高地和国际科创中心建设，助力高质量发展。": "Rooted in the Greater Bay Area and connected to the world, GBATC supports the development of a high-level talent hub and an international innovation and technology center.",
+        "了解中心": "About GBATC",
+        "联系合作": "Contact Us",
+        "科技领军人才": "Tech Leaders",
+        "创新孵化项目": "Incubation Projects",
+        "城市战略布局": "City Network",
+        "战略合作伙伴": "Strategic Partners",
+        "黄": "H",
+        "黄德玉": "David Huang",
+        "主任 | Director": "Director",
+        "香港科技园共同企业加速基金 / 创新创业高级顾问": "Senior Advisor, HKSTP Co-acceleration Fund / Innovation & Entrepreneurship",
+        "香港会计师公会大湾区事务高级顾问": "Senior Advisor, Greater Bay Area Affairs, HKICPA",
+        "香港 · 东莞 · 深圳": "Hong Kong · Dongguan · Shenzhen",
+        "粤港澳大湾区科技领军人才创新驱动中心（简称 GBATC）立足国家战略，依托香港国际金融与科创优势，联动东莞制造业基础与深圳创新资源，构建科技人才交流、创新创业孵化与产业协同发展的综合服务平台。": "The Greater Bay Area Tech Talent Innovation-Driven Center, abbreviated as GBATC, aligns with national strategy, leverages Hong Kong's strengths in finance and innovation, and connects Dongguan's manufacturing base with Shenzhen's innovation resources to build an integrated service platform.",
+        "中心以“汇聚英才、驱动创新、协同湾区”为使命，聚合政策、资本、产业、科研与专业服务资源，推动科技成果转化与人才项目落地。": "With the mission of gathering talent, driving innovation and connecting the Greater Bay Area, GBATC integrates policy, capital, industry, research and professional services to accelerate technology transfer and talent-led projects.",
+        "使命": "Mission",
+        "愿景": "Vision",
+        "价值": "Values",
+        "围绕人才、技术、产业、城市协同四个方向，服务大湾区科技创新与产业升级。": "GBATC serves talent, technology, industry and cross-city collaboration to support innovation and industrial upgrading in the Greater Bay Area.",
+        "人才引育": "Talent Development",
+        "引进全球科技领军人才，建设多层次人才培养与交流机制，形成大湾区人才蓄水池。": "Attract global technology leaders and build multi-level training and exchange mechanisms for the Greater Bay Area talent pool.",
+        "科技创新": "Technology Innovation",
+        "推动前沿技术研发、应用验证与成果转化，搭建产学研协同创新平台。": "Support frontier R&D, application validation and technology transfer through industry-university-research collaboration.",
+        "产业孵化": "Industrial Incubation",
+        "提供项目筛选、商业化辅导、资本对接与场景落地服务，加速科技企业成长。": "Provide project screening, commercialization guidance, capital matching and scenario deployment to help technology companies grow.",
+        "湾区协同": "GBA Collaboration",
+        "促进港澳与内地城市资源互通，构建政策、产业、资本与服务协同网络。": "Connect resources across Hong Kong, Macao and Mainland cities through policy, industry, capital and service networks.",
+        "查看更多 →": "View More →",
+        "中心启动": "Launch",
+        "中国新闻网": "China News",
+        "粤港澳大湾区首个科技领军人才创新驱动中心启动": "The Greater Bay Area's First Tech Talent Innovation-Driven Center Launched",
+        "报道中心在东莞启动，并介绍科技部建设论证、湾区人才驱动平台定位及服务方向。": "The report covers the center's launch in Dongguan, its approval process, platform positioning and service direction.",
+        "查看原文 →": "Read Original →",
+        "莞港合作": "DG-HK Cooperation",
+        "香港科技园": "Hong Kong Science Park",
+        "莞港湾区创科加速交流会深化合作": "Dongguan-Hong Kong Innovation Acceleration Exchange Deepens Cooperation",
+        "香港科技园与东莞市科学技术局及滨海湾合办交流会，推动联合孵化、AI 硬件创新与项目落地。": "HKSTP, Dongguan Science and Technology Bureau and Binhaiwan co-hosted the exchange to advance joint incubation, AI hardware innovation and project landing.",
+        "政策背景": "Policy Context",
+        "国务院新闻办": "SCIO",
+        "国新办发布会资料提供创新驱动政策背景": "SCIO Briefing Materials Provide Policy Context for Innovation-Driven Development",
+        "作为区域协同、创新驱动和产业升级的公开政策资料入口，为湾区科创合作提供背景参考。": "The public briefing materials offer policy context for regional collaboration, innovation-driven development and industrial upgrading.",
+        "专题报道": "Feature",
+        "微信公众号": "WeChat",
+        "原文链接": "Original Link",
+        "微信公众号报道：湾区科技人才与创新合作动态": "WeChat Report: GBA Technology Talent and Innovation Cooperation",
+        "聚焦湾区科技人才、科创资源对接及活动传播，展现湾区创新合作动态。": "The report highlights technology talent, innovation resource matching and cooperation activities across the Greater Bay Area.",
+        "博鳌推介": "BFA Promotion",
+        "博鳌亚洲论坛国际科技与创新论坛香港会议举办东莞推介会": "BFA International Science, Technology and Innovation Forum Hong Kong Conference Holds Dongguan Promotion Event",
+        "东莞推介会联动滨海湾港澳 AIST 计划路演，展示莞港科创合作成果与项目资源。": "The Dongguan event connected with the Binhaiwan Hong Kong-Macao AIST roadshow to showcase innovation cooperation and project resources.",
+        "湾区报道": "GBA Report",
+        "南方+报道：东莞湾区科创合作活动": "Nanfang Plus Report: Dongguan GBA Innovation Cooperation Event",
+        "报道东莞与湾区科创资源联动，关注产业生态、项目孵化与人才交流。": "The report focuses on Dongguan's connection with GBA innovation resources, industrial ecosystem, project incubation and talent exchange.",
+        "活动报道": "Event Report",
+        "微信公众号报道：莞港科创交流与项目对接": "WeChat Report: Dongguan-Hong Kong Innovation Exchange and Project Matching",
+        "关注莞港科创合作、企业服务与项目路演等活动进展，推动创新资源与产业场景对接。": "The report covers Dongguan-Hong Kong innovation cooperation, enterprise services and project roadshows that connect innovation resources with industrial scenarios.",
+        "携手共建大湾区科技创新生态圈": "Building the Greater Bay Area innovation ecosystem together",
+        "◆ 香港科技园": "◆ Hong Kong Science Park",
+        "◆ 香港交易所": "◆ Hong Kong Exchanges and Clearing",
+        "◆ 香港工业总会": "◆ Federation of Hong Kong Industries",
+        "◆ 香港会计师公会": "◆ Hong Kong Institute of CPAs",
+        "◆ 香港青年协会": "◆ Hong Kong Federation of Youth Groups",
+        "◆ 香港电子业商会": "◆ Hong Kong Electronic Industries Association",
+        "◆ 东莞市科学技术局": "◆ Dongguan Science and Technology Bureau",
+        "◆ 东莞松山湖高新区": "◆ Dongguan Songshan Lake Hi-Tech Zone",
+        "◆ 东莞滨海湾新区": "◆ Dongguan Binhaiwan Bay Area",
+        "香港 · 东莞 · 深圳三地联动，欢迎咨询合作、项目孵化与人才服务。": "Serving Hong Kong, Dongguan and Shenzhen. Contact us for partnerships, incubation and talent services.",
+        "联系方式": "Contact Information",
+        "三地布局": "City Network",
+        "座机电话": "Office Phone",
+        "手机号码": "Mobile",
+        "电子邮箱": "Email",
+        "在线咨询": "Online Enquiry",
+        "姓名 *": "Name *",
+        "联系电话": "Phone",
+        "电子邮箱 *": "Email *",
+        "咨询类型": "Enquiry Type",
+        "人才引育咨询": "Talent Development",
+        "科技创新合作": "Technology Cooperation",
+        "产业孵化服务": "Incubation Services",
+        "湾区协同交流": "GBA Collaboration",
+        "其他": "Other",
+        "留言内容 *": "Message *",
+        "提交咨询": "Submit Enquiry",
+        "提交后将打开邮件客户端，便于您发送咨询内容。": "Submitting opens your email client so you can send the enquiry.",
+        "粤港澳大湾区": "Greater Bay Area",
+        "科技领军人才创新驱动中心": "Tech Talent Innovation-Driven Center",
+        "汇聚全球领军，助力湾区发展。立足湾区、联动世界，服务粤港澳大湾区高水平人才高地和国际科创中心建设。": "Gathering global leaders and empowering the Greater Bay Area. GBATC supports a high-level talent hub and international innovation center.",
+        "快速链接": "Quick Links",
+        "业务领域": "Services",
+        "人才引育计划": "Talent Programs",
+        "科技创新平台": "Innovation Platform",
+        "企业孵化服务": "Incubation Services",
+        "湾区协同网络": "GBA Network",
+        "合作伙伴官网": "Partner Websites",
+        "香港交易所": "Hong Kong Exchanges and Clearing",
+        "香港工业总会": "Federation of Hong Kong Industries",
+        "香港会计师公会": "Hong Kong Institute of CPAs",
+        "香港青年协会": "Hong Kong Federation of Youth Groups",
+        "香港电子业商会": "Hong Kong Electronic Industries Association",
+        "东莞市科学技术局": "Dongguan Science and Technology Bureau",
+        "东莞松山湖高新区": "Dongguan Songshan Lake Hi-Tech Zone",
+        "东莞滨海湾新区": "Dongguan Binhaiwan Bay Area",
+        "© 2026 粤港澳大湾区科技领军人才创新驱动中心": "© 2026 Greater Bay Area Tech Talent Innovation-Driven Center",
+        "隐私政策 · 使用条款": "Privacy Policy · Terms of Use",
+        "返回首页": "Back to top",
+        "打开导航菜单": "Open navigation menu",
+        "主导航": "Main navigation",
+        "语言切换": "Language switcher",
+        "首页首屏": "Home hero",
+        "中心数据": "Center metrics",
+        "中心主任信息": "Director profile",
+        "使命愿景价值": "Mission, vision and values",
+        "合作伙伴列表": "Partner list",
+        "粤港澳大湾区科技领军人才创新驱动中心启动报道": "GBATC launch report",
+        "莞港湾区创科加速交流会报道": "Dongguan-Hong Kong innovation acceleration exchange report",
+        "国务院新闻办公室发布会资料": "SCIO briefing materials",
+        "微信公众号湾区科技人才报道": "WeChat report on GBA technology talent",
+        "博鳌亚洲论坛国际科技与创新论坛香港会议东莞推介会": "BFA ISTIF Hong Kong Conference Dongguan promotion event",
+        "南方+东莞湾区科创合作报道": "Nanfang Plus Dongguan GBA innovation cooperation report",
+        "微信公众号莞港科创交流报道": "WeChat report on Dongguan-Hong Kong innovation exchange",
+        "请输入您的姓名": "Your name",
+        "请输入联系电话": "Phone number",
+        "请输入电子邮箱": "Email address",
+        "请描述您的需求或问题": "Describe your needs or question"
+      }
+    };
+
+    const metaContent = {
+      "zh-CN": {
+        title: "粤港澳大湾区科技领军人才创新驱动中心",
+        description: "粤港澳大湾区科技领军人才创新驱动中心（简称 GBATC），立足湾区、联动世界，服务科技人才引育、科技创新、产业孵化与湾区协同。"
+      },
+      "zh-Hant": {
+        title: "粵港澳大灣區科技領軍人才創新驅動中心",
+        description: "粵港澳大灣區科技領軍人才創新驅動中心（簡稱 GBATC），立足灣區、聯動世界，服務科技人才引育、科技創新、產業孵化與灣區協同。"
+      },
+      en: {
+        title: "Greater Bay Area Tech Talent Innovation-Driven Center",
+        description: "GBATC connects the Greater Bay Area with the world, supporting technology talent, innovation, incubation and cross-city collaboration."
+      }
+    };
+
+    const mailCopy = {
+      "zh-CN": {
+        subjectPrefix: "官网咨询 - ",
+        name: "姓名",
+        phone: "电话",
+        emptyPhone: "未填写",
+        email: "邮箱",
+        topic: "咨询类型",
+        message: "留言内容"
+      },
+      "zh-Hant": {
+        subjectPrefix: "官網諮詢 - ",
+        name: "姓名",
+        phone: "電話",
+        emptyPhone: "未填寫",
+        email: "郵箱",
+        topic: "諮詢類型",
+        message: "留言內容"
+      },
+      en: {
+        subjectPrefix: "Website Enquiry - ",
+        name: "Name",
+        phone: "Phone",
+        emptyPhone: "Not provided",
+        email: "Email",
+        topic: "Enquiry Type",
+        message: "Message"
+      }
+    };
+
+    const textNodes = [];
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        const parent = node.parentElement;
+        if (!parent || ["SCRIPT", "STYLE"].includes(parent.tagName)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
     });
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      node.baseText = node.nodeValue;
+      textNodes.push(node);
+    }
+
+    const translatedAttributes = ["placeholder", "aria-label", "alt"];
+    const attributeNodes = Array.from(document.querySelectorAll("[placeholder], [aria-label], [alt]"));
+    attributeNodes.forEach((element) => {
+      translatedAttributes.forEach((attribute) => {
+        if (element.hasAttribute(attribute)) {
+          element.dataset[`base${attribute.replace("-", "")}`] = element.getAttribute(attribute);
+        }
+      });
+    });
+
+    function translate(base, lang) {
+      if (lang === "zh-CN") return base;
+      return translations[lang]?.[base] || base;
+    }
+
+    function applyLanguage(lang) {
+      if (!metaContent[lang]) lang = "zh-CN";
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.title = metaContent[lang].title;
+      document.querySelector('meta[name="description"]').setAttribute("content", metaContent[lang].description);
+
+      textNodes.forEach((node) => {
+        const base = node.baseText;
+        const trimmed = base.trim();
+        node.nodeValue = base.replace(trimmed, translate(trimmed, lang));
+      });
+
+      attributeNodes.forEach((element) => {
+        translatedAttributes.forEach((attribute) => {
+          if (!element.hasAttribute(attribute)) return;
+          const key = `base${attribute.replace("-", "")}`;
+          const base = element.dataset[key];
+          element.setAttribute(attribute, translate(base, lang));
+        });
+      });
+
+      langButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+      localStorage.setItem("gbatc-lang", lang);
+    }
+
+    langButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        applyLanguage(button.dataset.lang);
+        navLinks.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    applyLanguage(localStorage.getItem("gbatc-lang") || "zh-CN");
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -1286,13 +1712,14 @@
     contactForm.addEventListener("submit", (event) => {
       event.preventDefault();
       const data = new FormData(contactForm);
-      const subject = encodeURIComponent("官网咨询 - " + data.get("topic"));
+      const copy = mailCopy[currentLang] || mailCopy["zh-CN"];
+      const subject = encodeURIComponent(copy.subjectPrefix + data.get("topic"));
       const body = encodeURIComponent(
-        "姓名：" + data.get("name") + "\n" +
-        "电话：" + (data.get("phone") || "未填写") + "\n" +
-        "邮箱：" + data.get("email") + "\n" +
-        "咨询类型：" + data.get("topic") + "\n\n" +
-        "留言内容：\n" + data.get("message")
+        copy.name + ": " + data.get("name") + "\n" +
+        copy.phone + ": " + (data.get("phone") || copy.emptyPhone) + "\n" +
+        copy.email + ": " + data.get("email") + "\n" +
+        copy.topic + ": " + data.get("topic") + "\n\n" +
+        copy.message + ":\n" + data.get("message")
       );
       window.location.href = "mailto:David.Huang@GBATC.org?subject=" + subject + "&body=" + body;
     });
