@@ -595,7 +595,7 @@
       display: flex;
       gap: 42px;
       width: max-content;
-      animation: scroll 26s linear infinite;
+      animation: scroll 54s linear infinite;
     }
     .partner {
       display: inline-flex;
@@ -718,8 +718,27 @@
       font-size: 14px;
     }
     .footer-list a:hover { color: var(--gold-2); }
+    .footer-partners {
+      margin-top: 34px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .footer-partner-links {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 11px 18px;
+      color: rgba(255,255,255,.58);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .footer-partner-links a {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      transition: color .2s ease;
+    }
+    .footer-partner-links a:hover { color: var(--gold-2); }
     .footer-bottom {
-      margin-top: 40px;
+      margin-top: 28px;
       padding-top: 22px;
       border-top: 1px solid rgba(255,255,255,.1);
       display: flex;
@@ -791,6 +810,9 @@
       .footer-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+      .footer-partner-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 640px) {
@@ -812,7 +834,8 @@
       .services-grid,
       .news-grid,
       .form-row,
-      .footer-grid {
+      .footer-grid,
+      .footer-partner-links {
         grid-template-columns: 1fr;
       }
       .stat-card { min-height: auto; }
@@ -1055,15 +1078,43 @@
       <div class="partner-track-wrap" aria-label="合作伙伴列表">
         <div class="partner-track">
           <span class="partner">◆ 香港科技园</span>
-          <span class="partner">◆ 香港会计师公会</span>
-          <span class="partner">◆ 东莞市政府</span>
-          <span class="partner">◆ 深圳市科创委</span>
-          <span class="partner">◆ 大湾区共同家园</span>
+          <span class="partner">◆ 香港投资推广署</span>
+          <span class="partner">◆ 香港交易所</span>
+          <span class="partner">◆ 汇丰</span>
+          <span class="partner">◆ 德勤</span>
+          <span class="partner">◆ 汉坤律师事务所</span>
+          <span class="partner">◆ 一奇 Venturous</span>
+          <span class="partner">◆ 安富利 Avnet</span>
+          <span class="partner">◆ 香港电子业商会</span>
+          <span class="partner">◆ 东莞市科学技术局</span>
+          <span class="partner">◆ 东莞松山湖高新区</span>
+          <span class="partner">◆ 松山湖国际创新创业社区</span>
+          <span class="partner">◆ 东莞滨海湾新区</span>
+          <span class="partner">◆ 东莞理工学院</span>
+          <span class="partner">◆ 澳门大学</span>
+          <span class="partner">◆ 香港生产力促进局</span>
+          <span class="partner">◆ CAiRS</span>
+          <span class="partner">◆ 东莞交投集团</span>
+          <span class="partner">◆ EcoInno 香港寰科创新</span>
           <span class="partner">◆ 香港科技园</span>
-          <span class="partner">◆ 香港会计师公会</span>
-          <span class="partner">◆ 东莞市政府</span>
-          <span class="partner">◆ 深圳市科创委</span>
-          <span class="partner">◆ 大湾区共同家园</span>
+          <span class="partner">◆ 香港投资推广署</span>
+          <span class="partner">◆ 香港交易所</span>
+          <span class="partner">◆ 汇丰</span>
+          <span class="partner">◆ 德勤</span>
+          <span class="partner">◆ 汉坤律师事务所</span>
+          <span class="partner">◆ 一奇 Venturous</span>
+          <span class="partner">◆ 安富利 Avnet</span>
+          <span class="partner">◆ 香港电子业商会</span>
+          <span class="partner">◆ 东莞市科学技术局</span>
+          <span class="partner">◆ 东莞松山湖高新区</span>
+          <span class="partner">◆ 松山湖国际创新创业社区</span>
+          <span class="partner">◆ 东莞滨海湾新区</span>
+          <span class="partner">◆ 东莞理工学院</span>
+          <span class="partner">◆ 澳门大学</span>
+          <span class="partner">◆ 香港生产力促进局</span>
+          <span class="partner">◆ CAiRS</span>
+          <span class="partner">◆ 东莞交投集团</span>
+          <span class="partner">◆ EcoInno 香港寰科创新</span>
         </div>
       </div>
     </section>
@@ -1162,6 +1213,29 @@
             <li><a href="tel:076926381321">0769-2638 1321</a></li>
             <li><a href="mailto:DavidHuang@GBATC.org">DavidHuang@GBATC.org</a></li>
           </ul>
+        </div>
+      </div>
+      <div class="footer-partners">
+        <div class="footer-title">合作伙伴官网</div>
+        <div class="footer-partner-links">
+          <a href="https://www.hkstp.org/" target="_blank" rel="noopener">香港科技园</a>
+          <a href="https://www.investhk.gov.hk/" target="_blank" rel="noopener">香港投资推广署</a>
+          <a href="https://www.hkex.com.hk/" target="_blank" rel="noopener">香港交易所</a>
+          <a href="https://www.hsbc.com.hk/" target="_blank" rel="noopener">汇丰香港</a>
+          <a href="https://www.deloitte.com/cn/zh.html" target="_blank" rel="noopener">德勤中国</a>
+          <a href="https://www.hankunlaw.com/" target="_blank" rel="noopener">汉坤律师事务所</a>
+          <a href="https://www.venturousgroup.com/" target="_blank" rel="noopener">一奇 Venturous</a>
+          <a href="https://www.avnet.com/apac/" target="_blank" rel="noopener">安富利 Avnet</a>
+          <a href="https://www.hkeia.org/" target="_blank" rel="noopener">香港电子业商会</a>
+          <a href="https://dgstb.dg.gov.cn/" target="_blank" rel="noopener">东莞市科学技术局</a>
+          <a href="https://ssl.dg.gov.cn/" target="_blank" rel="noopener">东莞松山湖高新区</a>
+          <a href="https://bhwxq.dg.gov.cn/" target="_blank" rel="noopener">东莞滨海湾新区</a>
+          <a href="https://www.dgut.edu.cn/" target="_blank" rel="noopener">东莞理工学院</a>
+          <a href="https://www.um.edu.mo/" target="_blank" rel="noopener">澳门大学</a>
+          <a href="https://www.hkpc.org/" target="_blank" rel="noopener">香港生产力促进局</a>
+          <a href="https://www.cairs.hk/" target="_blank" rel="noopener">CAiRS</a>
+          <a href="https://www.dg.gov.cn/zwgk/zfxxgkml/srmzfgyzcjdglwyh/gyqyxxgk/jbxx/content/post_4377076.html" target="_blank" rel="noopener">东莞交投集团</a>
+          <a href="https://www.ecoinno.com.hk/" target="_blank" rel="noopener">EcoInno 香港寰科创新</a>
         </div>
       </div>
       <div class="footer-bottom">
