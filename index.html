@@ -161,6 +161,12 @@
       font-size: 12px;
       font-weight: 700;
     }
+    .brand-title .platform-tag {
+      display: inline;
+      color: rgba(255,255,255,.78);
+      font-size: inherit;
+      font-weight: inherit;
+    }
     .nav-links {
       display: flex;
       align-items: center;
@@ -331,6 +337,20 @@
       color: var(--white);
       border-color: rgba(255,255,255,.28);
       background: rgba(255,255,255,.07);
+    }
+    .btn-event {
+      color: var(--white);
+      border-color: rgba(255,255,255,.18);
+      background: linear-gradient(135deg, #ff7a1a, #d931b7);
+      box-shadow: 0 18px 42px rgba(255,122,26,.32);
+    }
+    .btn-event::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--white);
+      box-shadow: 0 0 0 5px rgba(255,255,255,.16);
     }
     .stat-panel {
       display: grid;
@@ -1009,14 +1029,14 @@
     <div class="container nav">
       <a class="brand" href="#top" aria-label="返回首页">
         <span class="brand-mark"><img src="assets/gbatc-logo.svg" alt="" aria-hidden="true" width="1280" height="682"></span>
-        <span class="brand-title">粤港澳大湾区科技领军人才<span>创新驱动中心</span></span>
+        <span class="brand-title">粤港澳大湾区科技领军人才<span>创新驱动中心<span class="platform-tag">（国家级平台）</span></span></span>
       </a>
       <button class="menu-btn" id="menuBtn" type="button" aria-label="打开导航菜单" aria-expanded="false"><span></span></button>
       <nav class="nav-links" id="navLinks" aria-label="主导航">
         <a href="#about">关于中心</a>
         <a href="#services">核心业务</a>
         <a href="#news">新闻动态</a>
-        <a href="events/dongguan-cdic-2026.html">活动专题</a>
+        <a href="events/dongguan-cdic-2026">活动专题</a>
         <a href="#partners">合作伙伴</a>
         <a href="#contact">联系我们</a>
         <div class="lang-switch" aria-label="语言切换">
@@ -1037,6 +1057,7 @@
           <p class="hero-copy">立足湾区、联动世界，助力粤港澳大湾区高水平人才高地和国际科创中心建设，助力高质量发展。</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#about">了解中心</a>
+            <a class="btn btn-event" href="events/dongguan-cdic-2026#schedule">CDIC 2026 东莞站日程</a>
             <a class="btn btn-ghost" href="#contact">联系合作</a>
           </div>
         </div>
@@ -1139,7 +1160,7 @@
           <a class="more" href="#contact">查看更多 →</a>
         </div>
         <div class="news-grid">
-          <a class="news-card fade" href="events/dongguan-cdic-2026.html">
+          <a class="news-card fade" href="events/dongguan-cdic-2026">
             <div class="news-media">
               <img src="assets/gba-hero.png" alt="CDIC 2026 东莞站活动专题" loading="lazy" decoding="async" width="1672" height="941">
               <span class="tag">活动报名</span>
@@ -1290,7 +1311,7 @@
           </aside>
           <section class="form-card fade">
             <h3>在线咨询</h3>
-            <form id="contactForm">
+            <form id="contactForm" action="mailto:David.Huang@GBATC.org" method="post" enctype="text/plain">
               <div class="form-row">
                 <div>
                   <label for="name">姓名 *</label>
@@ -1321,7 +1342,7 @@
               </div>
               <div class="submit-row">
                 <button class="btn btn-primary" type="submit">提交咨询</button>
-                <span class="form-note" id="formNote">提交后将打开邮件客户端，便于您发送咨询内容。</span>
+                <span class="form-note" id="formNote">提交后将直接打开邮件发送窗口，收件人为 David.Huang@GBATC.org。</span>
               </div>
             </form>
           </section>
@@ -1499,6 +1520,7 @@
         "粤港澳大湾区科技领军人才创新驱动中心": "粵港澳大灣區科技領軍人才創新驅動中心",
         "粤港澳大湾区科技领军人才": "粵港澳大灣區科技領軍人才",
         "创新驱动中心": "創新驅動中心",
+        "（国家级平台）": "（國家級平台）",
         "关于中心": "關於中心",
         "核心业务": "核心業務",
         "新闻动态": "新聞動態",
@@ -1522,6 +1544,7 @@
         "助力湾区发展": "助力灣區發展",
         "立足湾区、联动世界，助力粤港澳大湾区高水平人才高地和国际科创中心建设，助力高质量发展。": "立足灣區、聯動世界，助力粵港澳大灣區高水平人才高地和國際科創中心建設，助力高質量發展。",
         "了解中心": "了解中心",
+        "CDIC 2026 东莞站日程": "CDIC 2026 東莞站日程",
         "联系合作": "聯絡合作",
         "科技领军人才": "科技領軍人才",
         "创新孵化项目": "創新孵化項目",
@@ -1608,7 +1631,7 @@
         "其他": "其他",
         "留言内容 *": "留言內容 *",
         "提交咨询": "提交諮詢",
-        "提交后将打开邮件客户端，便于您发送咨询内容。": "提交後將開啟郵件客戶端，便於您發送諮詢內容。",
+        "提交后将直接打开邮件发送窗口，收件人为 David.Huang@GBATC.org。": "提交後將直接開啟郵件發送窗口，收件人為 David.Huang@GBATC.org。",
         "粤港澳大湾区": "粵港澳大灣區",
         "科技领军人才创新驱动中心": "科技領軍人才創新驅動中心",
         "汇聚全球领军，助力湾区发展。立足湾区、联动世界，服务粤港澳大湾区高水平人才高地和国际科创中心建设。": "匯聚全球領軍，助力灣區發展。立足灣區、聯動世界，服務粵港澳大灣區高水平人才高地和國際科創中心建設。",
@@ -1657,6 +1680,7 @@
         "粤港澳大湾区科技领军人才创新驱动中心": "Greater Bay Area Tech Talent Innovation-Driven Center",
         "粤港澳大湾区科技领军人才": "Greater Bay Area Tech Talent",
         "创新驱动中心": "Innovation-Driven Center",
+        "（国家级平台）": " (National-Level Platform)",
         "关于中心": "About",
         "核心业务": "Services",
         "新闻动态": "News",
@@ -1667,6 +1691,7 @@
         "助力湾区发展": "Empower the Greater Bay Area",
         "立足湾区、联动世界，助力粤港澳大湾区高水平人才高地和国际科创中心建设，助力高质量发展。": "Rooted in the Greater Bay Area and connected to the world, GBATC supports the development of a high-level talent hub and an international innovation and technology center.",
         "了解中心": "About GBATC",
+        "CDIC 2026 东莞站日程": "CDIC 2026 Dongguan Agenda",
         "联系合作": "Contact Us",
         "科技领军人才": "Tech Leaders",
         "创新孵化项目": "Incubation Projects",
@@ -1753,7 +1778,7 @@
         "其他": "Other",
         "留言内容 *": "Message *",
         "提交咨询": "Submit Enquiry",
-        "提交后将打开邮件客户端，便于您发送咨询内容。": "Submitting opens your email client so you can send the enquiry.",
+        "提交后将直接打开邮件发送窗口，收件人为 David.Huang@GBATC.org。": "Submitting opens a message addressed to David.Huang@GBATC.org.",
         "粤港澳大湾区": "Greater Bay Area",
         "科技领军人才创新驱动中心": "Tech Talent Innovation-Driven Center",
         "汇聚全球领军，助力湾区发展。立足湾区、联动世界，服务粤港澳大湾区高水平人才高地和国际科创中心建设。": "Gathering global leaders and empowering the Greater Bay Area. GBATC supports a high-level talent hub and international innovation center.",
