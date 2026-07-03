@@ -10,21 +10,23 @@
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="format-detection" content="telephone=yes">
   <meta name="application-name" content="GBATC">
+  <link rel="canonical" href="https://gbatc.org/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="粤港澳大湾区科技领军人才创新驱动中心">
   <meta property="og:title" content="粤港澳大湾区科技领军人才创新驱动中心">
   <meta property="og:description" content="粤港澳大湾区科技领军人才创新驱动中心（简称 GBATC），立足湾区、联动世界，服务科技人才引育、科技创新、产业孵化与湾区协同。">
+  <meta property="og:url" content="https://gbatc.org/">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:locale:alternate" content="zh_HK">
   <meta property="og:locale:alternate" content="en_US">
-  <meta property="og:image" content="assets/gba-hero.png">
+  <meta property="og:image" content="https://gbatc.org/assets/gba-hero.png">
   <meta property="og:image:width" content="1672">
   <meta property="og:image:height" content="941">
   <meta property="og:image:alt" content="粤港澳大湾区科技领军人才创新驱动中心">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="粤港澳大湾区科技领军人才创新驱动中心">
   <meta name="twitter:description" content="粤港澳大湾区科技领军人才创新驱动中心（简称 GBATC），立足湾区、联动世界，服务科技人才引育、科技创新、产业孵化与湾区协同。">
-  <meta name="twitter:image" content="assets/gba-hero.png">
+  <meta name="twitter:image" content="https://gbatc.org/assets/gba-hero.png">
   <meta name="twitter:image:alt" content="粤港澳大湾区科技领军人才创新驱动中心">
   <link rel="preload" href="assets/gba-hero.png" as="image" type="image/png" fetchpriority="high">
   <link rel="icon" href="assets/gbatc-logo.svg" type="image/svg+xml">
@@ -547,6 +549,29 @@
       font-weight: 800;
     }
 
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .faq-item {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+    .faq-item h3 {
+      color: var(--primary);
+      font-size: 18px;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+    .faq-item p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.78;
+    }
+
     .news-top {
       display: flex;
       align-items: end;
@@ -956,7 +981,8 @@
         align-items: center;
       }
       .services-grid,
-      .news-grid {
+      .news-grid,
+      .faq-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
       .footer-grid {
@@ -985,6 +1011,7 @@
       .stat-panel,
       .services-grid,
       .news-grid,
+      .faq-grid,
       .form-row,
       .footer-grid,
       .footer-partner-links {
@@ -995,7 +1022,8 @@
       .profile-card,
       .contact-card,
       .form-card,
-      .service-card {
+      .service-card,
+      .faq-item {
         padding: 24px;
       }
       .value-row { grid-template-columns: 1fr; }
@@ -1036,7 +1064,7 @@
         <a href="#about">关于中心</a>
         <a href="#services">核心业务</a>
         <a href="#news">新闻动态</a>
-        <a href="events/dongguan-cdic-2026">活动专题</a>
+        <a href="events/dongguan-cdic-2026/">活动专题</a>
         <a href="#partners">合作伙伴</a>
         <a href="#contact">联系我们</a>
         <div class="lang-switch" aria-label="语言切换">
@@ -1057,7 +1085,7 @@
           <p class="hero-copy">立足湾区、联动世界，助力粤港澳大湾区高水平人才高地和国际科创中心建设，助力高质量发展。</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#about">了解中心</a>
-            <a class="btn btn-event" href="events/dongguan-cdic-2026#schedule">CDIC 2026 东莞站日程</a>
+            <a class="btn btn-event" href="events/dongguan-cdic-2026/#schedule">CDIC 2026 东莞站日程</a>
             <a class="btn btn-ghost" href="#contact">联系合作</a>
           </div>
         </div>
@@ -1160,7 +1188,7 @@
           <a class="more" href="#contact">查看更多 →</a>
         </div>
         <div class="news-grid">
-          <a class="news-card fade" href="events/dongguan-cdic-2026">
+          <a class="news-card fade" href="events/dongguan-cdic-2026/">
             <div class="news-media">
               <img src="assets/gba-hero.png" alt="CDIC 2026 东莞站活动专题" loading="lazy" decoding="async" width="1672" height="941">
               <span class="tag">活动报名</span>
@@ -1288,6 +1316,34 @@
           <span class="partner">◆ 东莞市科学技术局</span>
           <span class="partner">◆ 东莞松山湖高新区</span>
           <span class="partner">◆ 东莞滨海湾新区</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section surface" id="faq">
+      <div class="container">
+        <div class="section-head fade">
+          <span class="eyebrow">FAQ</span>
+          <h2>常见问题</h2>
+          <p>围绕中心定位、服务对象、合作方式和活动信息，提供可直接引用的公开答案。</p>
+        </div>
+        <div class="faq-grid">
+          <article class="faq-item fade">
+            <h3>GBATC 是什么机构？</h3>
+            <p>GBATC 是粤港澳大湾区科技领军人才创新驱动中心，立足湾区、联动世界，服务科技人才引育、科技创新、产业孵化与湾区协同。</p>
+          </article>
+          <article class="faq-item fade">
+            <h3>GBATC 主要服务哪些方向？</h3>
+            <p>中心围绕人才引育、科技创新、产业孵化和湾区协同四个方向，连接政策、资本、产业、科研与专业服务资源。</p>
+          </article>
+          <article class="faq-item fade">
+            <h3>哪些机构适合联系 GBATC？</h3>
+            <p>科技企业、科研团队、投资机构、产业园区、专业服务机构和湾区合作伙伴，如需项目孵化、场景落地、资本对接或人才服务，均可联系中心。</p>
+          </article>
+          <article class="faq-item fade">
+            <h3>如何咨询合作？</h3>
+            <p>可通过网站联系表单、电子邮箱 David.Huang@GBATC.org、座机 0769-2638 1321 或手机 186 6648 8433 联系中心。</p>
+          </article>
         </div>
       </div>
     </section>
@@ -1429,13 +1485,13 @@
       "@graph": [
         {
           "@type": "Organization",
-          "@id": "#organization",
+          "@id": "https://gbatc.org/#organization",
           "name": "粤港澳大湾区科技领军人才创新驱动中心",
-          "alternateName": "GBATC",
+          "alternateName": ["GBATC", "Greater Bay Area Tech Talent Innovation-Driven Center"],
           "description": "粤港澳大湾区科技领军人才创新驱动中心服务科技人才引育、科技创新、产业孵化与湾区协同。",
-          "url": "./",
-          "logo": "assets/gbatc-logo.svg",
-          "image": "assets/gba-hero.png",
+          "url": "https://gbatc.org/",
+          "logo": "https://gbatc.org/assets/gbatc-logo.svg",
+          "image": "https://gbatc.org/assets/gba-hero.png",
           "email": "David.Huang@GBATC.org",
           "telephone": ["0769-2638 1321", "186 6648 8433"],
           "areaServed": ["粤港澳大湾区", "香港", "东莞", "深圳"],
@@ -1453,32 +1509,85 @@
             "@type": "OfferCatalog",
             "name": "核心业务",
             "itemListElement": [
-              { "@type": "Offer", "name": "人才引育" },
-              { "@type": "Offer", "name": "科技创新" },
-              { "@type": "Offer", "name": "产业孵化" },
-              { "@type": "Offer", "name": "湾区协同" }
+              { "@type": "Offer", "name": "人才引育", "url": "https://gbatc.org/#services" },
+              { "@type": "Offer", "name": "科技创新", "url": "https://gbatc.org/#services" },
+              { "@type": "Offer", "name": "产业孵化", "url": "https://gbatc.org/#services" },
+              { "@type": "Offer", "name": "湾区协同", "url": "https://gbatc.org/#services" }
             ]
           }
         },
         {
           "@type": "WebSite",
-          "@id": "#website",
+          "@id": "https://gbatc.org/#website",
           "name": "粤港澳大湾区科技领军人才创新驱动中心",
           "alternateName": "GBATC",
-          "url": "./",
-          "publisher": { "@id": "#organization" },
+          "url": "https://gbatc.org/",
+          "publisher": { "@id": "https://gbatc.org/#organization" },
           "inLanguage": ["zh-CN", "zh-Hant", "en"]
         },
         {
           "@type": "WebPage",
-          "@id": "#webpage",
+          "@id": "https://gbatc.org/#webpage",
           "name": "粤港澳大湾区科技领军人才创新驱动中心",
           "description": "粤港澳大湾区科技领军人才创新驱动中心（简称 GBATC），立足湾区、联动世界，服务科技人才引育、科技创新、产业孵化与湾区协同。",
-          "url": "./",
-          "isPartOf": { "@id": "#website" },
-          "about": { "@id": "#organization" },
-          "primaryImageOfPage": "assets/gba-hero.png",
+          "url": "https://gbatc.org/",
+          "isPartOf": { "@id": "https://gbatc.org/#website" },
+          "about": { "@id": "https://gbatc.org/#organization" },
+          "primaryImageOfPage": "https://gbatc.org/assets/gba-hero.png",
           "inLanguage": "zh-CN"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "@id": "https://gbatc.org/#site-navigation",
+          "name": ["关于中心", "核心业务", "新闻动态", "活动专题", "合作伙伴", "常见问题", "联系我们"],
+          "url": [
+            "https://gbatc.org/#about",
+            "https://gbatc.org/#services",
+            "https://gbatc.org/#news",
+            "https://gbatc.org/events/dongguan-cdic-2026/",
+            "https://gbatc.org/#partners",
+            "https://gbatc.org/#faq",
+            "https://gbatc.org/#contact"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://gbatc.org/#faqpage",
+          "url": "https://gbatc.org/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "GBATC 是什么机构？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "GBATC 是粤港澳大湾区科技领军人才创新驱动中心，立足湾区、联动世界，服务科技人才引育、科技创新、产业孵化与湾区协同。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "GBATC 主要服务哪些方向？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "中心围绕人才引育、科技创新、产业孵化和湾区协同四个方向，连接政策、资本、产业、科研与专业服务资源。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "哪些机构适合联系 GBATC？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "科技企业、科研团队、投资机构、产业园区、专业服务机构和湾区合作伙伴，如需项目孵化、场景落地、资本对接或人才服务，均可联系中心。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "如何咨询合作？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "可通过网站联系表单、电子邮箱 David.Huang@GBATC.org、座机 0769-2638 1321 或手机 186 6648 8433 联系中心。"
+              }
+            }
+          ]
         }
       ]
     }

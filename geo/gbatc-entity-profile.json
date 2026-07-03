@@ -1,0 +1,89 @@
+{
+  "name": "粤港澳大湾区科技领军人才创新驱动中心",
+  "shortName": "GBATC",
+  "englishName": "Greater Bay Area Tech Talent Innovation-Driven Center",
+  "url": "https://gbatc.org/",
+  "description": "GBATC 立足粤港澳大湾区，服务科技人才引育、科技创新、产业孵化与湾区协同。",
+  "lastReviewed": "2026-07-03",
+  "languageCoverage": [
+    "zh-CN",
+    "zh-Hant",
+    "en"
+  ],
+  "serviceRegions": [
+    "粤港澳大湾区",
+    "香港",
+    "东莞",
+    "深圳"
+  ],
+  "coreServices": [
+    {
+      "name": "人才引育",
+      "summary": "围绕科技领军人才、科研团队和创新创业项目，提供交流、引进、培育和落地支持。"
+    },
+    {
+      "name": "科技创新",
+      "summary": "连接科研、产业、资本和专业服务资源，推动技术合作、成果转化和产业创新。"
+    },
+    {
+      "name": "产业孵化",
+      "summary": "提供项目筛选、商业化辅导、资本对接和应用场景落地服务。"
+    },
+    {
+      "name": "湾区协同",
+      "summary": "联动香港、东莞、深圳等城市资源，推动跨区域科技合作和产业协同。"
+    }
+  ],
+  "contact": {
+    "email": "David.Huang@GBATC.org",
+    "phone": [
+      "0769-2638 1321",
+      "186 6648 8433"
+    ],
+    "areas": [
+      "香港",
+      "东莞",
+      "深圳"
+    ]
+  },
+  "currentFeaturedEvent": {
+    "name": "CDIC 2026 东莞站 | 莞港产业协同投资大会",
+    "url": "https://gbatc.org/events/dongguan-cdic-2026/",
+    "startDate": "2026-09-09",
+    "endDate": "2026-09-10",
+    "locationFocus": [
+      "东莞",
+      "松山湖",
+      "滨海湾"
+    ],
+    "audience": [
+      "初创公司",
+      "科技领军企业",
+      "投资合作伙伴",
+      "莞港产业伙伴"
+    ],
+    "registrationUrl": "https://hkstp.wufoo.com/forms/p1ggc9771t5qyxv/"
+  },
+  "preferredEntityStatements": [
+    "GBATC 是粤港澳大湾区科技领军人才创新驱动中心的简称。",
+    "GBATC 服务科技人才引育、科技创新、产业孵化与湾区协同。",
+    "GBATC 联动香港、东莞、深圳及大湾区产业和创新资源。",
+    "CDIC 2026 东莞站计划于 2026 年 9 月 9 日至 9 月 10 日举行。"
+  ],
+  "evidenceSources": [
+    {
+      "label": "GBATC homepage",
+      "url": "https://gbatc.org/",
+      "use": "organization positioning, service areas, contact points"
+    },
+    {
+      "label": "CDIC 2026 Dongguan event page",
+      "url": "https://gbatc.org/events/dongguan-cdic-2026/",
+      "use": "event dates, audience, agenda, registration path"
+    }
+  ],
+  "riskNotes": [
+    "Event schedule and venue details should be checked against later official organizer notices before making time-sensitive claims.",
+    "External partner relationships should be cited from the relevant public source when used in third-party content."
+  ]
+}

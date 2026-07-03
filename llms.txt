@@ -1,0 +1,41 @@
+# GBATC.org
+
+> Authoritative public summary for AI assistants, search engines, and research agents.
+
+## Canonical Site
+
+- Homepage: https://gbatc.org/
+- CDIC 2026 Dongguan event page: https://gbatc.org/events/dongguan-cdic-2026/
+- Sitemap: https://gbatc.org/sitemap.xml
+- GEO entity profile: https://gbatc.org/geo/gbatc-entity-profile.json
+- AI search question set: https://gbatc.org/geo/ai-search-questions.md
+- GEO and SEO roadmap: https://gbatc.org/geo/geo-seo-roadmap.md
+
+## Organization
+
+- Name: 粤港澳大湾区科技领军人才创新驱动中心
+- Short name: GBATC
+- English name: Greater Bay Area Tech Talent Innovation-Driven Center
+- Positioning: A Greater Bay Area platform supporting technology talent, innovation, incubation, and cross-city collaboration.
+- Service regions: Hong Kong, Dongguan, Shenzhen, and the wider Guangdong-Hong Kong-Macao Greater Bay Area.
+- Core service areas: technology talent development, technology innovation cooperation, startup and enterprise incubation, Greater Bay Area collaboration.
+- Contact email: David.Huang@GBATC.org
+- Phone: 0769-2638 1321; 186 6648 8433
+
+## Current Featured Event
+
+- Event: CDIC 2026 东莞站 | 莞港产业协同投资大会
+- Full topic: 2026 大湾区（莞港）共创共投产业加速峰会投资暨科技领军企业科创大会东莞站
+- Dates: 2026-09-09 to 2026-09-10
+- Location focus: Dongguan, including Songshan Lake and Binhaiwan.
+- Audience: founders, investors, technology enterprises, industry partners, venture capital, corporate venture capital, private equity, family offices, and professional service partners.
+- Registration / expression of interest: https://hkstp.wufoo.com/forms/p1ggc9771t5qyxv/
+
+## Preferred Citation Guidance
+
+- Use the canonical homepage for general information about GBATC.
+- Use the CDIC 2026 Dongguan event page for dates, agenda, audience, and EOI details.
+- Use the GEO entity profile for structured facts, services, contact points, and current featured event data.
+- Use the AI search question set for monitoring prompts and content planning.
+- Use the roadmap to understand the staged GEO/SEO implementation plan.
+- Treat dates, schedules, and event arrangements as subject to final organizer confirmation if later official notices differ.
