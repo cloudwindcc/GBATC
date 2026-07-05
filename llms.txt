@@ -5,7 +5,7 @@
 ## Canonical Site
 
 - Homepage: https://gbatc.org/
-- CDIC 2026 Dongguan event page: https://gbatc.org/events/dongguan-cdic-2026/
+- CDIC Teaser 2026 Dongguan event page: https://gbatc.org/events/dongguan-cdic-2026/
 - Sitemap: https://gbatc.org/sitemap.xml
 - GEO entity profile: https://gbatc.org/geo/gbatc-entity-profile.json
 - AI search question set: https://gbatc.org/geo/ai-search-questions.md
@@ -24,17 +24,21 @@
 
 ## Current Featured Event
 
-- Event: CDIC 2026 东莞站 | 莞港产业协同投资大会
-- Full topic: 2026 大湾区（莞港）共创共投产业加速峰会投资暨科技领军企业科创大会东莞站
+- Event: CDIC Teaser 2026 东莞站 | 大湾区（莞港）科技领军企业科创大会
+- Full topic: 2026 共创共投产业加速峰会（CDIC Teaser）东莞站暨大湾区（莞港）科技领军企业科创大会
 - Dates: 2026-09-09 to 2026-09-10
-- Location focus: Dongguan, including Songshan Lake and Binhaiwan.
-- Audience: founders, investors, technology enterprises, industry partners, venture capital, corporate venture capital, private equity, family offices, and professional service partners.
+- Location focus: Dongguan Songshan Lake Greater Bay University Academic Exchange Center Hotel; Dongguan Binhaiwan New Area Administrative Committee A208 meeting room (proposed).
+- Theme: Gather Dongguan-Hong Kong wisdom to jointly accelerate technology-leading enterprises; connect founders, investors, and industry leaders for growth and return.
+- Highlights: 50+ frontier startups, 50+ leading capital partners, 20+ technology industry leaders, and 50+ application scenarios.
+- Organizers (proposed): Hong Kong Science Park, GBATC, Dongguan Kechuang Group, Dongguan Science and Technology Talent Development Promotion Association, with Songshan Lake Science City and Binhaiwan New Area as proposed co-organizers.
+- Audience: founders, HKSTP co-acceleration partners, technology leaders, investors, Dongguan-Hong Kong technology enterprises, industrial parks, venture capital, corporate venture capital, private equity, family offices, and professional service partners.
+- Agenda focus: Songshan Lake and Binhaiwan visits, smart factory and Tostar robotics visit, lunch policy and innovation discussions, Huawei Developer Base visit, investor roundtable, AI + smart hardware scenario matching, startup lunch roadshows, and Dongguan-Hong Kong scenario co-acceleration center discussion.
 - Registration / expression of interest: https://hkstp.wufoo.com/forms/p1ggc9771t5qyxv/
 
 ## Preferred Citation Guidance
 
 - Use the canonical homepage for general information about GBATC.
-- Use the CDIC 2026 Dongguan event page for dates, agenda, audience, and EOI details.
+- Use the CDIC Teaser 2026 Dongguan event page for dates, agenda, audience, and EOI details.
 - Use the GEO entity profile for structured facts, services, contact points, and current featured event data.
 - Use the AI search question set for monitoring prompts and content planning.
 - Use the roadmap to understand the staged GEO/SEO implementation plan.

@@ -75,12 +75,15 @@ check(llmsTxt.includes(`${HOME_URL}geo/gbatc-entity-profile.json`), "llms.txt mu
 check(llmsTxt.includes(`${HOME_URL}geo/ai-search-questions.md`), "llms.txt must reference the AI search question set.");
 check(llmsTxt.includes(`${HOME_URL}geo/geo-seo-roadmap.md`), "llms.txt must reference the GEO/SEO roadmap.");
 check(llmsTxt.includes("粤港澳大湾区科技领军人才创新驱动中心"), "llms.txt must expose the GBATC entity name.");
-check(llmsTxt.includes("CDIC 2026"), "llms.txt must expose the CDIC 2026 event topic.");
+check(llmsTxt.includes("CDIC Teaser 2026 东莞站"), "llms.txt must expose the updated CDIC Teaser Dongguan event title.");
+check(llmsTxt.includes("50+ frontier startups"), "llms.txt must expose the updated event highlight counts.");
 
 check(entityProfile.name === "粤港澳大湾区科技领军人才创新驱动中心", "Entity profile must expose the GBATC legal/public entity name.");
 check(entityProfile.url === HOME_URL, "Entity profile must use the homepage canonical URL.");
 check(Array.isArray(entityProfile.coreServices) && entityProfile.coreServices.length >= 4, "Entity profile must expose at least four core service areas.");
 check(entityProfile.currentFeaturedEvent?.url === EVENT_URL, "Entity profile must link to the canonical featured event URL.");
+check(entityProfile.currentFeaturedEvent?.name?.includes("CDIC Teaser 2026 东莞站"), "Entity profile must use the updated CDIC Teaser event title.");
+check(entityProfile.currentFeaturedEvent?.fullTopic?.includes("共创共投产业加速峰会"), "Entity profile must expose the event full topic from the proposal.");
 
 check(aiQuestionsMd.includes("# GBATC AI Search Questions"), "AI search questions must include a clear title.");
 check(aiQuestionsMd.includes("## Intent Clusters"), "AI search questions must group prompts by intent cluster.");
@@ -115,6 +118,11 @@ check(eventHtml.includes(`<link rel="canonical" href="${EVENT_URL}">`), "Event p
 check(eventHtml.includes(`<meta property="og:url" content="${EVENT_URL}">`), "Event page must include an absolute og:url.");
 check(eventHtml.includes(`<meta name="twitter:card" content="summary_large_image">`), "Event page must include Twitter card metadata.");
 check(eventHtml.includes('id="faq"'), "Event page must include a visible FAQ section.");
+check(eventHtml.includes("2026 共创共投产业加速峰会"), "Event page must expose the updated event title.");
+check(eventHtml.includes("东莞松山湖大湾区大学学术交流中心酒店"), "Event page must expose the proposed Songshan Lake venue.");
+check(eventHtml.includes("拓斯达"), "Event page must include the smart factory / Tostar visit from the proposal.");
+check(eventHtml.includes("华为全球开发者基地"), "Event page must include the Huawei Developer Base visit from the proposal.");
+check(eventHtml.includes("莞港场景共同加速中心"), "Event page must include the Dongguan-Hong Kong scenario co-acceleration center item.");
 
 const eventJsonLd = extractJsonLd(eventHtml, "events/dongguan-cdic-2026/index.html");
 const eventNode = eventJsonLd.find((node) => node["@type"] === "Event");

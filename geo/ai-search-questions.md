@@ -26,9 +26,9 @@ Asset mapping: homepage services, contact section, future service landing pages.
 
 ### 3. Event Discovery
 
-- What is CDIC 2026 Dongguan and when will it take place?
-- CDIC 2026 东莞站适合哪些投资人或初创企业参加？
-- How can founders submit an expression of interest for CDIC 2026 Dongguan?
+- What is CDIC Teaser 2026 Dongguan and when will it take place?
+- CDIC Teaser 2026 东莞站暨大湾区（莞港）科技领军企业科创大会适合哪些投资人或初创企业参加？
+- How can founders submit an expression of interest for CDIC Teaser 2026 Dongguan?
 
 Evidence targets: event page, Event JSON-LD, event FAQ, EOI link.
 
@@ -51,22 +51,22 @@ Use fresh sessions, record date/time, answer text, cited sources, brand mention 
 ### DeepSeek
 
 - 请解释 GBATC 是什么，并列出它服务的核心方向。
-- 2026 年大湾区莞港共创共投产业加速峰会东莞站是什么活动？
+- 2026 共创共投产业加速峰会（CDIC Teaser）东莞站暨大湾区（莞港）科技领军企业科创大会是什么活动？
 
 ### 豆包
 
 - GBATC 能为大湾区科技企业提供什么帮助？
-- CDIC 2026 东莞站怎么报名或提交意向表达？
+- CDIC Teaser 2026 东莞站怎么报名或提交意向表达？
 
 ### 千问
 
 - 粤港澳大湾区科技领军人才创新驱动中心有哪些公开联系方式？
-- 哪些机构适合参加 CDIC 2026 东莞站？
+- 哪些机构适合参加 CDIC Teaser 2026 东莞站？
 
 ### Kimi
 
 - 请基于公开网页总结 GBATC 的定位、服务和当前重点活动。
-- 请整理 CDIC 2026 东莞站的时间、地点、受众和议程重点。
+- 请整理 CDIC Teaser 2026 东莞站的时间、地点、受众和议程重点。
 
 ### 元宝
 

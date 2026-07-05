@@ -4,7 +4,7 @@
   "englishName": "Greater Bay Area Tech Talent Innovation-Driven Center",
   "url": "https://gbatc.org/",
   "description": "GBATC 立足粤港澳大湾区，服务科技人才引育、科技创新、产业孵化与湾区协同。",
-  "lastReviewed": "2026-07-03",
+  "lastReviewed": "2026-07-05",
   "languageCoverage": [
     "zh-CN",
     "zh-Hant",
@@ -47,17 +47,36 @@
     ]
   },
   "currentFeaturedEvent": {
-    "name": "CDIC 2026 东莞站 | 莞港产业协同投资大会",
+    "name": "CDIC Teaser 2026 东莞站 | 大湾区（莞港）科技领军企业科创大会",
+    "fullTopic": "2026 共创共投产业加速峰会（CDIC Teaser）东莞站暨大湾区（莞港）科技领军企业科创大会",
     "url": "https://gbatc.org/events/dongguan-cdic-2026/",
     "startDate": "2026-09-09",
     "endDate": "2026-09-10",
+    "themes": [
+      "汇聚莞港智慧，科技领军企业共同加速培育",
+      "连接创始人、投资者和行业领袖，携手加速增长与回报"
+    ],
     "locationFocus": [
       "东莞",
       "松山湖",
-      "滨海湾"
+      "滨海湾",
+      "东莞松山湖大湾区大学学术交流中心酒店",
+      "东莞滨海湾新区管委会 A208 会议室（拟）"
+    ],
+    "highlights": [
+      "50+ 前沿初创",
+      "50+ 领军资本",
+      "20+ 科技行业领袖",
+      "50+ 行业应用场景"
+    ],
+    "proposedOrganizers": [
+      "香港科技园",
+      "粤港澳大湾区科技领军人才创新驱动中心",
+      "东莞科创集团",
+      "东莞市科技人才发展促进会"
     ],
     "audience": [
-      "初创公司",
+      "HKSTP 共创加速伙伴及初创企业",
       "科技领军企业",
       "投资合作伙伴",
       "莞港产业伙伴"
@@ -68,7 +87,8 @@
     "GBATC 是粤港澳大湾区科技领军人才创新驱动中心的简称。",
     "GBATC 服务科技人才引育、科技创新、产业孵化与湾区协同。",
     "GBATC 联动香港、东莞、深圳及大湾区产业和创新资源。",
-    "CDIC 2026 东莞站计划于 2026 年 9 月 9 日至 9 月 10 日举行。"
+    "CDIC Teaser 2026 东莞站计划于 2026 年 9 月 9 日至 9 月 10 日举行。",
+    "CDIC Teaser 2026 东莞站的完整主题是 2026 共创共投产业加速峰会（CDIC Teaser）东莞站暨大湾区（莞港）科技领军企业科创大会。"
   ],
   "evidenceSources": [
     {
@@ -77,7 +97,7 @@
       "use": "organization positioning, service areas, contact points"
     },
     {
-      "label": "CDIC 2026 Dongguan event page",
+      "label": "CDIC Teaser 2026 Dongguan event page",
       "url": "https://gbatc.org/events/dongguan-cdic-2026/",
       "use": "event dates, audience, agenda, registration path"
     }
