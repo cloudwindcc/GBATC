@@ -163,14 +163,22 @@
       letter-spacing: -.02em;
     }
     .hero h1 {
-      max-width: 790px;
-      font-size: clamp(42px, 6vw, 64px);
-      line-height: 1.02;
+      max-width: 900px;
+      font-size: clamp(40px, 5.4vw, 60px);
+      line-height: 1.08;
       letter-spacing: 0;
       font-weight: 900;
     }
-    .hero h1 span { color: #ffd27a; }
-    .mobile-break { display: none; }
+    .hero-title-main,
+    .hero-title-accent {
+      display: block;
+    }
+    .hero-title-accent {
+      margin-top: 10px;
+      color: #ffd27a;
+      font-size: clamp(36px, 4.8vw, 54px);
+      line-height: 1.12;
+    }
     .hero-sub {
       margin-top: 22px;
       max-width: 760px;
@@ -616,8 +624,8 @@
       .brand span { font-size: 13px; }
       .hero-grid { padding: 52px 0 60px; }
       .hkstp-mark { font-size: 27px; margin-bottom: 24px; }
-      .hero h1 { font-size: 40px; }
-      .mobile-break { display: block; }
+      .hero h1 { font-size: 34px; line-height: 1.12; }
+      .hero-title-accent { font-size: 30px; line-height: 1.16; }
       .hero-sub { font-size: 17px; }
       .hero-actions .btn,
       .cta-actions .btn {
@@ -651,8 +659,8 @@
       <div class="container hero-grid">
         <div>
           <div class="hkstp-mark">HKSTP × GBATC</div>
-          <h1>2026 共创共投产业<span class="mobile-break"></span>加速峰会<br><span>CDIC Teaser 东莞站</span></h1>
-          <p class="hero-sub">暨大湾区（莞港）科技领军企业科创大会，连接创始人、投资者和行业领袖，携手加速增长与回报，聚焦莞港智慧、产业场景共创与科技领军企业共同加速培育。</p>
+          <h1><span class="hero-title-main">2026 共创共投产业加速峰会 CDIC Teaser 东莞站</span><span class="hero-title-accent">暨大湾区（莞港）科技领军企业科创大会</span></h1>
+          <p class="hero-sub">连接创始人、投资者和行业领袖，携手加速增长与回报，聚焦莞港智慧、产业场景共创与科技领军企业共同加速培育。</p>
           <div class="date-strip" aria-label="活动时间与地点">
             <span>东莞站 2026年9月9-10日</span>
             <span>2天1夜</span>
