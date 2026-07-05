@@ -101,6 +101,41 @@ check(homeHtml.includes(`<meta property="og:image" content="${HOME_URL}assets/gb
 check(homeHtml.includes(`<meta name="twitter:image" content="${HOME_URL}assets/gba-hero.png">`), "Homepage Twitter image must be absolute.");
 check(homeHtml.includes('id="faq"'), "Homepage must include a visible FAQ section for AI-extractable answers.");
 
+const homepageFaqText = [
+  "常见问题",
+  "围绕中心定位、服务对象、合作方式和活动信息，提供可直接引用的公开答案。",
+  "GBATC 是什么机构？",
+  "GBATC 是粤港澳大湾区科技领军人才创新驱动中心，立足湾区、联动世界，服务科技人才引育、科技创新、产业孵化与湾区协同。",
+  "GBATC 主要服务哪些方向？",
+  "中心围绕人才引育、科技创新、产业孵化和湾区协同四个方向，连接政策、资本、产业、科研与专业服务资源。",
+  "哪些机构适合联系 GBATC？",
+  "科技企业、科研团队、投资机构、产业园区、专业服务机构和湾区合作伙伴，如需项目孵化、场景落地、资本对接或人才服务，均可联系中心。",
+  "如何咨询合作？",
+  "可通过网站联系表单、电子邮箱 David.Huang@GBATC.org、座机 0769-2638 1321 或手机 186 6648 8433 联系中心。"
+];
+
+const translationsMatch = homeHtml.match(/const translations = ([\s\S]*?);\s*const metaContent = /);
+let translations = {};
+if (!translationsMatch) {
+  failures.push("Homepage must expose a parseable translations dictionary.");
+} else {
+  try {
+    translations = Function(`"use strict"; return (${translationsMatch[1]});`)();
+  } catch (error) {
+    failures.push(`Homepage translations dictionary must be valid JavaScript: ${error.message}`);
+  }
+}
+
+for (const text of homepageFaqText) {
+  check(homeHtml.includes(text), `Homepage FAQ must expose text: ${text}`);
+  for (const lang of ["zh-Hant", "en"]) {
+    check(
+      translations[lang]?.[text] && translations[lang][text] !== text,
+      `Homepage FAQ text must include ${lang} translation for: ${text}`
+    );
+  }
+}
+
 const homeJsonLd = extractJsonLd(homeHtml, "index.html");
 const organization = homeJsonLd.find((node) => node["@type"] === "Organization");
 const website = homeJsonLd.find((node) => node["@type"] === "WebSite");
