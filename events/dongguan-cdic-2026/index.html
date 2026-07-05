@@ -100,6 +100,30 @@
       white-space: nowrap;
     }
     .nav-actions a:hover { color: var(--white); }
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      padding: 3px;
+    }
+    .lang-option {
+      border: 0;
+      border-radius: 6px;
+      padding: 6px 9px;
+      color: rgba(255,255,255,.74);
+      background: transparent;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 1;
+    }
+    .lang-option.active {
+      color: #102846;
+      background: #ffd27a;
+    }
 
     .btn {
       display: inline-flex;
@@ -616,12 +640,15 @@
       }
       .metrics { margin-top: 0; padding-top: 24px; }
       .nav-actions a:not(.btn) { display: none; }
+      .nav-actions { gap: 10px; }
     }
     @media (max-width: 560px) {
       .container { width: min(100% - 28px, var(--max)); }
       .nav { min-height: 68px; }
       .brand img { width: 68px; height: 38px; }
       .brand span { font-size: 13px; }
+      .nav-actions .btn { display: none; }
+      .lang-option { padding: 6px 7px; }
       .hero-grid { padding: 52px 0 60px; }
       .hkstp-mark { font-size: 27px; margin-bottom: 24px; }
       .hero h1 { font-size: 34px; line-height: 1.12; }
@@ -650,6 +677,11 @@
         <a href="#overview">活动概览</a>
         <a href="#schedule">东莞日程</a>
         <a href="#register" class="btn btn-primary">意向表达</a>
+        <div class="lang-switch" aria-label="语言切换">
+          <button class="lang-option active" type="button" data-lang="zh-CN">简体</button>
+          <button class="lang-option" type="button" data-lang="zh-Hant">繁體</button>
+          <button class="lang-option" type="button" data-lang="en">EN</button>
+        </div>
       </nav>
     </div>
   </header>
@@ -659,7 +691,7 @@
       <div class="container hero-grid">
         <div>
           <div class="hkstp-mark">HKSTP × GBATC</div>
-          <h1><span class="hero-title-main">2026 共创共投产业加速峰会 CDIC Teaser 东莞站</span><span class="hero-title-accent">暨大湾区（莞港）科技领军企业科创大会</span></h1>
+          <h1><span class="hero-title-main">2026 共创共投产业加速峰会 CDIC Teaser 东莞站</span><span class="hero-title-accent">暨 大湾区（莞港）科技领军企业科创大会</span></h1>
           <p class="hero-sub">连接创始人、投资者和行业领袖，携手加速增长与回报，聚焦莞港智慧、产业场景共创与科技领军企业共同加速培育。</p>
           <div class="date-strip" aria-label="活动时间与地点">
             <span>东莞站 2026年9月9-10日</span>
@@ -1030,6 +1062,358 @@
     }
   </script>
   <script>
+    const langButtons = document.querySelectorAll(".lang-option");
+    let currentLang = "zh-CN";
+
+    const translations = {
+      "zh-Hant": {
+        "CDIC Teaser 2026 东莞站 | 大湾区（莞港）科技领军企业科创大会": "CDIC Teaser 2026 東莞站 | 大灣區（莞港）科技領軍企業科創大會",
+        "粤港澳大湾区科技领军人才": "粵港澳大灣區科技領軍人才",
+        "创新驱动中心": "創新驅動中心",
+        "活动概览": "活動概覽",
+        "东莞日程": "東莞日程",
+        "意向表达": "意向表達",
+        "2026 共创共投产业加速峰会 CDIC Teaser 东莞站": "2026 共創共投產業加速峰會 CDIC Teaser 東莞站",
+        "暨 大湾区（莞港）科技领军企业科创大会": "暨 大灣區（莞港）科技領軍企業科創大會",
+        "连接创始人、投资者和行业领袖，携手加速增长与回报，聚焦莞港智慧、产业场景共创与科技领军企业共同加速培育。": "連接創始人、投資者和行業領袖，攜手加速增長與回報，聚焦莞港智慧、產業場景共創與科技領軍企業共同加速培育。",
+        "东莞站 2026年9月9-10日": "東莞站 2026年9月9-10日",
+        "2天1夜": "2天1夜",
+        "松山湖 · 滨海湾新区": "松山湖 · 濱海灣新區",
+        "填写意向表达": "填寫意向表達",
+        "查看东莞日程": "查看東莞日程",
+        "意向表达 EOI": "意向表達 EOI",
+        "二维码来自香港科技园 CDIC 2026 意向表达表单。提交后，主办方将进一步分享活动详情。": "二維碼來自香港科技園 CDIC 2026 意向表達表單。提交後，主辦方將進一步分享活動詳情。",
+        "前沿初创企业与项目，覆盖 AI、机器人、智能硬件、新能源与生命健康科技等领域。": "前沿初創企業與項目，覆蓋 AI、機械人、智能硬件、新能源與生命健康科技等領域。",
+        "领军资本与投资伙伴，促进联合投资、募资与投后增长机会。": "領軍資本與投資夥伴，促進聯合投資、募資與投後增長機會。",
+        "科技行业领袖与产业伙伴，提供真实市场和客户需求。": "科技行業領袖與產業夥伴，提供真實市場和客戶需求。",
+        "行业应用场景，共同探索技术验证、场景落地与产业协同。": "行業應用場景，共同探索技術驗證、場景落地與產業協同。",
+        "三地联动中的东莞深度探索": "三地聯動中的東莞深度探索",
+        "根据活动方案，东莞站是 CDIC Teaser 2026 三地联动中的产业深度探索环节，以松山湖与滨海湾为核心场景，集中连接资本合作、智能制造参访、应用场景共创和科技企业加速。": "根據活動方案，東莞站是 CDIC Teaser 2026 三地聯動中的產業深度探索環節，以松山湖與濱海灣為核心場景，集中連接資本合作、智能製造參訪、應用場景共創和科技企業加速。",
+        "1 高峰会议": "1 高峰會議",
+        "香港": "香港",
+        "9月7-8日，聚焦全球 IPO 市场、创新集群与科技园生态。": "9月7-8日，聚焦全球 IPO 市場、創新集群與科技園生態。",
+        "2 深度探索": "2 深度探索",
+        "东莞": "東莞",
+        "9月9-10日，围绕莞港智慧、智能制造、联合投资、午餐路演和场景应用深度配对展开。": "9月9-10日，圍繞莞港智慧、智能製造、聯合投資、午餐路演和場景應用深度配對展開。",
+        "3 深度探索": "3 深度探索",
+        "杭州": "杭州",
+        "9月11-12日，延伸长三角创新生态与战略企业参访。": "9月11-12日，延伸長三角創新生態與戰略企業參訪。",
+        "活动信息": "活動資訊",
+        "以下信息根据活动方案整理，最终安排以主办方正式发布为准。": "以下資訊根據活動方案整理，最終安排以主辦方正式發布為準。",
+        "活动主题": "活動主題",
+        "汇聚莞港智慧，科技领军企业共同加速培育；连接创始人、投资者和行业领袖，携手加速增长与回报。": "匯聚莞港智慧，科技領軍企業共同加速培育；連接創始人、投資者和行業領袖，攜手加速增長與回報。",
+        "活动时间": "活動時間",
+        "2026年9月9-10日，为期 2 天 1 夜。": "2026年9月9-10日，為期 2 天 1 夜。",
+        "活动地点": "活動地點",
+        "东莞松山湖大湾区大学学术交流中心酒店、东莞滨海湾新区管委会 A208 会议室（拟）。": "東莞松山湖大灣區大學學術交流中心酒店、東莞濱海灣新區管委會 A208 會議室（擬）。",
+        "报名方式": "報名方式",
+        "通过 CDIC 2026 意向表达表单提交公司、类别、姓名、职位和电邮信息。": "通過 CDIC 2026 意向表達表單提交公司、類別、姓名、職位和電郵資訊。",
+        "活动组织（拟）": "活動組織（擬）",
+        "主办单位拟包括香港科技园、粤港澳大湾区科技领军人才创新驱动中心、东莞科创集团、东莞市科技人才发展促进会；联合主办单位拟包括松山湖科学城、滨海湾新区及其他待确认单位。": "主辦單位擬包括香港科技園、粵港澳大灣區科技領軍人才創新驅動中心、東莞科創集團、東莞市科技人才發展促進會；聯合主辦單位擬包括松山湖科學城、濱海灣新區及其他待確認單位。",
+        "承办单位拟包括广东科技金融中心东莞分中心、东莞市科技金融服务有限公司；协办及支持单位拟联动相关产业园、中集智谷产业园、香港工业总会、香港会计师公会、香港新型工业发展联盟、香港产学研合作促进会、香港电子业商会和香港青年协会等。": "承辦單位擬包括廣東科技金融中心東莞分中心、東莞市科技金融服務有限公司；協辦及支持單位擬聯動相關產業園、中集智谷產業園、香港工業總會、香港會計師公會、香港新型工業發展聯盟、香港產學研合作促進會、香港電子業商會和香港青年協會等。",
+        "面向投资者、初创企业与产业伙伴": "面向投資者、初創企業與產業夥伴",
+        "活动围绕项目流、募资、产业场景、市场对接和区域生态资源，服务投资合作与科技企业加速。": "活動圍繞項目流、募資、產業場景、市場對接和區域生態資源，服務投資合作與科技企業加速。",
+        "科技领袖": "科技領袖",
+        "面向阿里巴巴、亚马逊云科技、安富利、云深处、谷歌、微软、OPPO、VIVO 等云计算、AI、机器人、智能硬件和先进制造领域伙伴。": "面向阿里巴巴、亞馬遜雲科技、安富利、雲深處、谷歌、微軟、OPPO、VIVO 等雲計算、AI、機械人、智能硬件和先進製造領域夥伴。",
+        "HKSTP 共创加速伙伴": "HKSTP 共創加速夥伴",
+        "面向 APS Asset Management、国泰创科、福民发展有限公司、杭州市实业投资集团、协成行、云起控股、Yistech Limited、浙江交通集团等合作伙伴及初创项目。": "面向 APS Asset Management、國泰創科、福民發展有限公司、杭州市實業投資集團、協成行、雲起控股、Yistech Limited、浙江交通集團等合作夥伴及初創項目。",
+        "投资合作伙伴": "投資合作夥伴",
+        "面向阿里巴巴创业者基金、勃林格殷格翰风险基金、同创伟业、殷拓集团、戈壁创投、香港创业及私募投资协会、深圳天使母基金、VU Ventures Partners 等投资机构。": "面向阿里巴巴創業者基金、勃林格殷格翰風險基金、同創偉業、殷拓集團、戈壁創投、香港創業及私募投資協會、深圳天使母基金、VU Ventures Partners 等投資機構。",
+        "莞港产业伙伴": "莞港產業夥伴",
+        "面向大湾区（莞港）科技领军企业、产业园区、平台机构与专业服务伙伴，推动真实应用场景共创和项目落地。": "面向大灣區（莞港）科技領軍企業、產業園區、平台機構與專業服務夥伴，推動真實應用場景共創和項目落地。",
+        "东莞站日程安排": "東莞站日程安排",
+        "两天议程以“参访 + 会谈 + 路演 + 深度配对”为主线，连接东莞产业场景与香港科技园创新资源。": "兩天議程以「參訪 + 會談 + 路演 + 深度配對」為主線，連接東莞產業場景與香港科技園創新資源。",
+        "9月9日（星期三）": "9月9日（星期三）",
+        "产业生态参访与莞港交流": "產業生態參訪與莞港交流",
+        "香港出发前往东莞": "香港出發前往東莞",
+        "参会人员由香港出发，进入东莞站行程。": "參會人員由香港出發，進入東莞站行程。",
+        "上市服务基地与科技金融集聚区参观": "上市服務基地與科技金融集聚區參觀",
+        "参观东莞企业上市服务基地、松山湖科技金融集聚区，并安排欢迎致辞与参观座谈。": "參觀東莞企業上市服務基地、松山湖科技金融集聚區，並安排歡迎致辭與參觀座談。",
+        "东莞智能工厂参观": "東莞智能工廠參觀",
+        "走进松山湖片区全球领先机器人企业拓斯达，了解智能制造和机器人产业场景。": "走進松山湖片區全球領先機械人企業拓斯達，了解智能製造和機械人產業場景。",
+        "午餐会谈": "午餐會談",
+        "分享东莞与大湾区创科生态、投资与创新政策支持，以及松山湖专项科创产业方向。": "分享東莞與大灣區創科生態、投資與創新政策支持，以及松山湖專項科創產業方向。",
+        "东莞潮玩基地参观交流": "東莞潮玩基地參觀交流",
+        "围绕东莞产业战略企业和潮玩产业场景开展交流。": "圍繞東莞產業戰略企業和潮玩產業場景開展交流。",
+        "华为全球开发者基地参访": "華為全球開發者基地參訪",
+        "参访松山湖与华为共建的全球开发者基地，理解平台生态与应用机会。": "參訪松山湖與華為共建的全球開發者基地，理解平台生態與應用機會。",
+        "晚宴与交流": "晚宴與交流",
+        "促进莞港参会人员初步交流，建立后续对接基础。": "促進莞港參會人員初步交流，建立後續對接基礎。",
+        "9月10日（星期四）": "9月10日（星期四）",
+        "联合投资与场景落地配对": "聯合投資與場景落地配對",
+        "投资者会场": "投資者會場",
+        "CDIC 东莞分会场，围绕资本与联合投资深度合作讨论；拟邀请香港投资者与东莞投控、交控、科创金融、松山湖科学城、滨海湾控股、东莞证券、立湾投资及相关协会等机构对接。": "CDIC 東莞分會場，圍繞資本與聯合投資深度合作討論；擬邀請香港投資者與東莞投控、交控、科創金融、松山湖科學城、濱海灣控股、東莞證券、立灣投資及相關協會等機構對接。",
+        "初创者会场": "初創者會場",
+        "CDIC 场景应用落地会场，围绕用例共同开发机会开展深度配对，包括 AI+智能硬件（国家人工智能中试基地）专场及 vivo、OPPO 等产业端对接。": "CDIC 場景應用落地會場，圍繞用例共同開發機會開展深度配對，包括 AI+智能硬件（國家人工智能中試基地）專場及 vivo、OPPO 等產業端對接。",
+        "初创公司午餐路演": "初創公司午餐路演",
+        "组织 CDIC 初创公司路演，每间公司约 5 分钟展示，促进资本、场景与合作伙伴快速识别。": "組織 CDIC 初創公司路演，每間公司約 5 分鐘展示，促進資本、場景與合作夥伴快速識別。",
+        "莞港场景共同加速中心交流": "莞港場景共同加速中心交流",
+        "围绕香港科技园、滨海湾与 GBATC 共建场景共同加速中心进行交流，并安排闭幕致辞。": "圍繞香港科技園、濱海灣與 GBATC 共建場景共同加速中心進行交流，並安排閉幕致辭。",
+        "闭幕与转场": "閉幕與轉場",
+        "东莞站闭幕后，参会人员出发前往杭州，进入长三角行程。": "東莞站閉幕後，參會人員出發前往杭州，進入長三角行程。",
+        "以真实产业场景验证技术，以资本协同加速落地": "以真實產業場景驗證技術，以資本協同加速落地",
+        "东莞站突出大湾区制造业基础、莞港创新资源联动与产业场景共创，帮助投资者、初创企业、科技领军企业和产业平台在两天一夜内完成生态认知、需求对接、联合投资讨论和后续合作线索沉淀。": "東莞站突出大灣區製造業基礎、莞港創新資源聯動與產業場景共創，幫助投資者、初創企業、科技領軍企業和產業平台在兩天一夜內完成生態認知、需求對接、聯合投資討論和後續合作線索沉澱。",
+        "智能制造与机器人": "智能製造與機械人",
+        "结合东莞智能工厂参观和机器人产业场景，推动技术验证与产业应用沟通。": "結合東莞智能工廠參觀和機械人產業場景，推動技術驗證與產業應用溝通。",
+        "AI+智能硬件专场": "AI+智能硬件專場",
+        "围绕国家人工智能中试基地、vivo、OPPO 等产业资源，组织应用场景与用例共同开发机会。": "圍繞國家人工智能中試基地、vivo、OPPO 等產業資源，組織應用場景與用例共同開發機會。",
+        "莞港场景共同加速": "莞港場景共同加速",
+        "探索香港科技园、滨海湾与 GBATC 协同机制，推动莞港场景共同加速中心和后续项目服务。": "探索香港科技園、濱海灣與 GBATC 協同機制，推動莞港場景共同加速中心和後續項目服務。",
+        "活动常见问题": "活動常見問題",
+        "以下问答用于快速了解 CDIC Teaser 2026 东莞站的公开信息，具体安排以主办方正式通知为准。": "以下問答用於快速了解 CDIC Teaser 2026 東莞站的公開資訊，具體安排以主辦方正式通知為準。",
+        "CDIC Teaser 2026 东莞站什么时候举行？": "CDIC Teaser 2026 東莞站什麼時候舉行？",
+        "东莞站计划于 2026 年 9 月 9 日至 9 月 10 日举行，为期 2 天 1 夜；两天议程围绕产业参访、投资交流、午餐路演和深度配对展开。": "東莞站計劃於 2026 年 9 月 9 日至 9 月 10 日舉行，為期 2 天 1 夜；兩天議程圍繞產業參訪、投資交流、午餐路演和深度配對展開。",
+        "活动地点在哪里？": "活動地點在哪裡？",
+        "活动方案列示地点为东莞松山湖大湾区大学学术交流中心酒店、东莞滨海湾新区管委会 A208 会议室（拟），最终场地以主办方正式通知为准。": "活動方案列示地點為東莞松山湖大灣區大學學術交流中心酒店、東莞濱海灣新區管委會 A208 會議室（擬），最終場地以主辦方正式通知為準。",
+        "哪些人适合参加？": "哪些人適合參加？",
+        "活动面向初创公司、科技领军企业、投资合作伙伴、莞港产业伙伴，以及关注资本对接、场景共建和科技企业加速的机构。": "活動面向初創公司、科技領軍企業、投資合作夥伴、莞港產業夥伴，以及關注資本對接、場景共建和科技企業加速的機構。",
+        "如何提交意向表达？": "如何提交意向表達？",
+        "可通过页面中的香港科技园 EOI 表单链接或二维码提交意向表达，表单会收集参与类别、公司、姓名、职位和电邮等信息。": "可通過頁面中的香港科技園 EOI 表單連結或二維碼提交意向表達，表單會收集參與類別、公司、姓名、職位和電郵等資訊。",
+        "填写 CDIC 2026 意向表达，获取后续活动详情": "填寫 CDIC 2026 意向表達，獲取後續活動詳情",
+        "EOI 表单将收集参与类别、公司名称、总部所在地、注册者姓名、职位和电邮等信息。若有疑问，可通过香港科技园表单页面列示的 capital@hkstp.org 联系主办方。": "EOI 表單將收集參與類別、公司名稱、總部所在地、註冊者姓名、職位和電郵等資訊。若有疑問，可通過香港科技園表單頁面列示的 capital@hkstp.org 聯繫主辦方。",
+        "打开 EOI 表单": "打開 EOI 表單",
+        "联系 GBATC": "聯繫 GBATC",
+        "扫码或点击按钮提交意向表达": "掃碼或點擊按鈕提交意向表達",
+        "© 2026 粤港澳大湾区科技领军人才创新驱动中心": "© 2026 粵港澳大灣區科技領軍人才創新驅動中心",
+        "返回 GBATC.org 首页": "返回 GBATC.org 首頁",
+        "返回 GBATC 首页": "返回 GBATC 首頁",
+        "活动页导航": "活動頁導航",
+        "语言切换": "語言切換",
+        "活动时间与地点": "活動時間與地點",
+        "活动亮点数据": "活動亮點數據",
+        "CDIC 2026 意向表达二维码": "CDIC 2026 意向表達二維碼",
+        "CDIC 2026 意向表达 EOI 二维码": "CDIC 2026 意向表達 EOI 二維碼"
+      },
+      en: {
+        "CDIC Teaser 2026 东莞站 | 大湾区（莞港）科技领军企业科创大会": "CDIC Teaser 2026 Dongguan | GBA Dongguan-Hong Kong Tech Leaders Innovation Conference",
+        "粤港澳大湾区科技领军人才": "Greater Bay Area Tech Talent",
+        "创新驱动中心": "Innovation-Driven Center",
+        "活动概览": "Overview",
+        "东莞日程": "Dongguan Agenda",
+        "意向表达": "EOI",
+        "2026 共创共投产业加速峰会 CDIC Teaser 东莞站": "2026 Co-Creation and Co-Investment Industry Acceleration Summit, CDIC Teaser Dongguan",
+        "暨 大湾区（莞港）科技领军企业科创大会": "and the GBA Dongguan-Hong Kong Tech Leaders Innovation Conference",
+        "连接创始人、投资者和行业领袖，携手加速增长与回报，聚焦莞港智慧、产业场景共创与科技领军企业共同加速培育。": "Connecting founders, investors, and industry leaders to accelerate growth and returns, with a focus on Dongguan-Hong Kong collaboration, scenario co-creation, and tech enterprise acceleration.",
+        "东莞站 2026年9月9-10日": "Dongguan | Sep 9-10, 2026",
+        "2天1夜": "2 days, 1 night",
+        "松山湖 · 滨海湾新区": "Songshan Lake · Binhaiwan New Area",
+        "填写意向表达": "Submit EOI",
+        "查看东莞日程": "View Agenda",
+        "意向表达 EOI": "Expression of Interest",
+        "二维码来自香港科技园 CDIC 2026 意向表达表单。提交后，主办方将进一步分享活动详情。": "This QR code links to the Hong Kong Science Park CDIC 2026 EOI form. After submission, the organizers will share further event details.",
+        "前沿初创企业与项目，覆盖 AI、机器人、智能硬件、新能源与生命健康科技等领域。": "Frontier startups and projects across AI, robotics, smart hardware, new energy, life sciences, and health technology.",
+        "领军资本与投资伙伴，促进联合投资、募资与投后增长机会。": "Leading capital and investment partners supporting co-investment, fundraising, and post-investment growth.",
+        "科技行业领袖与产业伙伴，提供真实市场和客户需求。": "Technology industry leaders and industrial partners bringing real market and customer needs.",
+        "行业应用场景，共同探索技术验证、场景落地与产业协同。": "Application scenarios for technology validation, implementation, and industrial collaboration.",
+        "三地联动中的东莞深度探索": "Dongguan Deep Dive in a Three-City Program",
+        "根据活动方案，东莞站是 CDIC Teaser 2026 三地联动中的产业深度探索环节，以松山湖与滨海湾为核心场景，集中连接资本合作、智能制造参访、应用场景共创和科技企业加速。": "Based on the event plan, the Dongguan session is the industrial deep-dive within the CDIC Teaser 2026 three-city program, centered on Songshan Lake and Binhaiwan and focused on capital collaboration, smart manufacturing visits, scenario co-creation, and tech enterprise acceleration.",
+        "1 高峰会议": "1 Summit",
+        "香港": "Hong Kong",
+        "9月7-8日，聚焦全球 IPO 市场、创新集群与科技园生态。": "Sep 7-8, focused on global IPO markets, innovation clusters, and the Science Park ecosystem.",
+        "2 深度探索": "2 Deep Dive",
+        "东莞": "Dongguan",
+        "9月9-10日，围绕莞港智慧、智能制造、联合投资、午餐路演和场景应用深度配对展开。": "Sep 9-10, focused on Dongguan-Hong Kong collaboration, smart manufacturing, co-investment, lunch roadshows, and scenario matching.",
+        "3 深度探索": "3 Deep Dive",
+        "杭州": "Hangzhou",
+        "9月11-12日，延伸长三角创新生态与战略企业参访。": "Sep 11-12, extending into the Yangtze River Delta innovation ecosystem and strategic enterprise visits.",
+        "活动信息": "Event Details",
+        "以下信息根据活动方案整理，最终安排以主办方正式发布为准。": "The following details are based on the event plan. Final arrangements are subject to official organizer announcements.",
+        "活动主题": "Theme",
+        "汇聚莞港智慧，科技领军企业共同加速培育；连接创始人、投资者和行业领袖，携手加速增长与回报。": "Gather Dongguan-Hong Kong insight to jointly accelerate technology-leading enterprises; connect founders, investors, and industry leaders to accelerate growth and returns.",
+        "活动时间": "Dates",
+        "2026年9月9-10日，为期 2 天 1 夜。": "September 9-10, 2026, over 2 days and 1 night.",
+        "活动地点": "Venues",
+        "东莞松山湖大湾区大学学术交流中心酒店、东莞滨海湾新区管委会 A208 会议室（拟）。": "Greater Bay University Academic Exchange Center Hotel in Dongguan Songshan Lake, and Room A208 of the Dongguan Binhaiwan New Area Administrative Committee (proposed).",
+        "报名方式": "Registration",
+        "通过 CDIC 2026 意向表达表单提交公司、类别、姓名、职位和电邮信息。": "Submit company, category, name, title, and email information through the CDIC 2026 EOI form.",
+        "活动组织（拟）": "Organizing Parties (Proposed)",
+        "主办单位拟包括香港科技园、粤港澳大湾区科技领军人才创新驱动中心、东莞科创集团、东莞市科技人才发展促进会；联合主办单位拟包括松山湖科学城、滨海湾新区及其他待确认单位。": "Proposed organizers include Hong Kong Science Park, GBATC, Dongguan Kechuang Group, and the Dongguan Science and Technology Talent Development Promotion Association. Proposed co-organizers include Songshan Lake Science City, Binhaiwan New Area, and other parties to be confirmed.",
+        "承办单位拟包括广东科技金融中心东莞分中心、东莞市科技金融服务有限公司；协办及支持单位拟联动相关产业园、中集智谷产业园、香港工业总会、香港会计师公会、香港新型工业发展联盟、香港产学研合作促进会、香港电子业商会和香港青年协会等。": "Proposed operators include Guangdong Technology Financial Center Dongguan Branch and Dongguan Technology Finance Service Co., Ltd. Supporting partners are expected to include relevant industrial parks, CIMC Intelligent Valley Industrial Park, Federation of Hong Kong Industries, Hong Kong Institute of CPAs, Hong Kong New Industrial Development Alliance, Hong Kong Industry-University-Research Collaboration Association, Hong Kong Electronic Industries Association, and Hong Kong Federation of Youth Groups.",
+        "面向投资者、初创企业与产业伙伴": "For Investors, Startups, and Industrial Partners",
+        "活动围绕项目流、募资、产业场景、市场对接和区域生态资源，服务投资合作与科技企业加速。": "The program serves investment collaboration and tech enterprise acceleration through deal flow, fundraising, industrial scenarios, market matching, and regional ecosystem resources.",
+        "科技领袖": "Technology Leaders",
+        "面向阿里巴巴、亚马逊云科技、安富利、云深处、谷歌、微软、OPPO、VIVO 等云计算、AI、机器人、智能硬件和先进制造领域伙伴。": "For partners in cloud computing, AI, robotics, smart hardware, and advanced manufacturing, including Alibaba, AWS, Avnet, DEEP Robotics, Google, Microsoft, OPPO, and vivo.",
+        "HKSTP 共创加速伙伴": "HKSTP Co-Acceleration Partners",
+        "面向 APS Asset Management、国泰创科、福民发展有限公司、杭州市实业投资集团、协成行、云起控股、Yistech Limited、浙江交通集团等合作伙伴及初创项目。": "For partners and startup projects connected with APS Asset Management, Cathay Innovation, Fullwealth, Hangzhou Industrial Investment Group, Hip Shing Hong, Yunqi Holdings, Yistech Limited, Zhejiang Communications Investment Group, and others.",
+        "投资合作伙伴": "Investment Partners",
+        "面向阿里巴巴创业者基金、勃林格殷格翰风险基金、同创伟业、殷拓集团、戈壁创投、香港创业及私募投资协会、深圳天使母基金、VU Ventures Partners 等投资机构。": "For investment institutions including Alibaba Entrepreneurs Fund, Boehringer Ingelheim Venture Fund, Cowin Capital, EQT, Gobi Partners, HKVCA, Shenzhen Angel FOF, VU Ventures Partners, and others.",
+        "莞港产业伙伴": "Dongguan-Hong Kong Industrial Partners",
+        "面向大湾区（莞港）科技领军企业、产业园区、平台机构与专业服务伙伴，推动真实应用场景共创和项目落地。": "For GBA Dongguan-Hong Kong tech leaders, industrial parks, platform organizations, and professional service partners seeking real scenario co-creation and project landing.",
+        "东莞站日程安排": "Dongguan Agenda",
+        "两天议程以“参访 + 会谈 + 路演 + 深度配对”为主线，连接东莞产业场景与香港科技园创新资源。": "The two-day agenda follows a visit, discussion, roadshow, and deep matching format, connecting Dongguan industrial scenarios with Hong Kong Science Park innovation resources.",
+        "9月9日（星期三）": "September 9 (Wednesday)",
+        "产业生态参访与莞港交流": "Industrial Ecosystem Visits and Dongguan-Hong Kong Exchange",
+        "香港出发前往东莞": "Depart Hong Kong for Dongguan",
+        "参会人员由香港出发，进入东莞站行程。": "Participants depart from Hong Kong and begin the Dongguan program.",
+        "上市服务基地与科技金融集聚区参观": "Visit to Listing Service Base and Technology Finance Cluster",
+        "参观东莞企业上市服务基地、松山湖科技金融集聚区，并安排欢迎致辞与参观座谈。": "Visit the Dongguan Enterprise Listing Service Base and Songshan Lake Technology Finance Cluster, followed by welcome remarks and discussion.",
+        "东莞智能工厂参观": "Dongguan Smart Factory Visit",
+        "走进松山湖片区全球领先机器人企业拓斯达，了解智能制造和机器人产业场景。": "Visit Tostar, a globally leading robotics company in Songshan Lake, to understand smart manufacturing and robotics scenarios.",
+        "午餐会谈": "Lunch Discussion",
+        "分享东莞与大湾区创科生态、投资与创新政策支持，以及松山湖专项科创产业方向。": "Share insights on the Dongguan and GBA innovation ecosystem, investment and innovation policy support, and Songshan Lake's focused technology industry directions.",
+        "东莞潮玩基地参观交流": "Dongguan Art Toy Base Visit",
+        "围绕东莞产业战略企业和潮玩产业场景开展交流。": "Exchange around Dongguan strategic industrial enterprises and art toy industry scenarios.",
+        "华为全球开发者基地参访": "Huawei Global Developer Base Visit",
+        "参访松山湖与华为共建的全球开发者基地，理解平台生态与应用机会。": "Visit the Global Developer Base jointly developed by Songshan Lake and Huawei to understand platform ecosystems and application opportunities.",
+        "晚宴与交流": "Dinner and Networking",
+        "促进莞港参会人员初步交流，建立后续对接基础。": "Enable initial exchange among Dongguan and Hong Kong participants and establish a foundation for follow-up matching.",
+        "9月10日（星期四）": "September 10 (Thursday)",
+        "联合投资与场景落地配对": "Co-Investment and Scenario Implementation Matching",
+        "投资者会场": "Investor Session",
+        "CDIC 东莞分会场，围绕资本与联合投资深度合作讨论；拟邀请香港投资者与东莞投控、交控、科创金融、松山湖科学城、滨海湾控股、东莞证券、立湾投资及相关协会等机构对接。": "The CDIC Dongguan sub-session will focus on capital and co-investment collaboration, with proposed matching between Hong Kong investors and Dongguan investment, transport, technology finance, Songshan Lake Science City, Binhaiwan Holdings, Dongguan Securities, Liwan Investment, and relevant associations.",
+        "初创者会场": "Startup Session",
+        "CDIC 场景应用落地会场，围绕用例共同开发机会开展深度配对，包括 AI+智能硬件（国家人工智能中试基地）专场及 vivo、OPPO 等产业端对接。": "The CDIC scenario implementation session will focus on use-case co-development opportunities, including an AI + smart hardware session with the national AI pilot platform and industry-side matching with vivo, OPPO, and others.",
+        "初创公司午餐路演": "Startup Lunch Roadshow",
+        "组织 CDIC 初创公司路演，每间公司约 5 分钟展示，促进资本、场景与合作伙伴快速识别。": "CDIC startups will pitch during lunch, with about five minutes per company to help capital, scenario owners, and partners identify fit quickly.",
+        "莞港场景共同加速中心交流": "Dongguan-Hong Kong Scenario Co-Acceleration Center Discussion",
+        "围绕香港科技园、滨海湾与 GBATC 共建场景共同加速中心进行交流，并安排闭幕致辞。": "Discussion around a scenario co-acceleration center jointly developed by Hong Kong Science Park, Binhaiwan, and GBATC, followed by closing remarks.",
+        "闭幕与转场": "Closing and Transfer",
+        "东莞站闭幕后，参会人员出发前往杭州，进入长三角行程。": "After the Dongguan session closes, participants depart for Hangzhou and continue into the Yangtze River Delta program.",
+        "以真实产业场景验证技术，以资本协同加速落地": "Validate Technology in Real Industrial Scenarios and Accelerate Landing with Capital",
+        "东莞站突出大湾区制造业基础、莞港创新资源联动与产业场景共创，帮助投资者、初创企业、科技领军企业和产业平台在两天一夜内完成生态认知、需求对接、联合投资讨论和后续合作线索沉淀。": "The Dongguan session highlights the GBA manufacturing base, Dongguan-Hong Kong innovation resources, and industrial scenario co-creation, helping investors, startups, tech leaders, and industrial platforms build ecosystem understanding, match needs, discuss co-investment, and capture follow-up leads within two days and one night.",
+        "智能制造与机器人": "Smart Manufacturing and Robotics",
+        "结合东莞智能工厂参观和机器人产业场景，推动技术验证与产业应用沟通。": "Connect smart factory visits and robotics scenarios to support technology validation and industrial application discussions.",
+        "AI+智能硬件专场": "AI + Smart Hardware Session",
+        "围绕国家人工智能中试基地、vivo、OPPO 等产业资源，组织应用场景与用例共同开发机会。": "Organize application scenarios and use-case co-development opportunities around the national AI pilot platform, vivo, OPPO, and other industrial resources.",
+        "莞港场景共同加速": "Dongguan-Hong Kong Scenario Co-Acceleration",
+        "探索香港科技园、滨海湾与 GBATC 协同机制，推动莞港场景共同加速中心和后续项目服务。": "Explore collaboration mechanisms among Hong Kong Science Park, Binhaiwan, and GBATC to advance the Dongguan-Hong Kong scenario co-acceleration center and follow-up project services.",
+        "活动常见问题": "Event FAQ",
+        "以下问答用于快速了解 CDIC Teaser 2026 东莞站的公开信息，具体安排以主办方正式通知为准。": "The following answers summarize public information about CDIC Teaser 2026 Dongguan. Specific arrangements are subject to official organizer notices.",
+        "CDIC Teaser 2026 东莞站什么时候举行？": "When will CDIC Teaser 2026 Dongguan take place?",
+        "东莞站计划于 2026 年 9 月 9 日至 9 月 10 日举行，为期 2 天 1 夜；两天议程围绕产业参访、投资交流、午餐路演和深度配对展开。": "The Dongguan session is planned for September 9-10, 2026, over two days and one night. The agenda centers on industrial visits, investment exchange, lunch roadshows, and deep matching.",
+        "活动地点在哪里？": "Where will the event take place?",
+        "活动方案列示地点为东莞松山湖大湾区大学学术交流中心酒店、东莞滨海湾新区管委会 A208 会议室（拟），最终场地以主办方正式通知为准。": "The plan lists the Greater Bay University Academic Exchange Center Hotel in Dongguan Songshan Lake and Room A208 of the Dongguan Binhaiwan New Area Administrative Committee as proposed venues. Final venues are subject to official organizer notices.",
+        "哪些人适合参加？": "Who should attend?",
+        "活动面向初创公司、科技领军企业、投资合作伙伴、莞港产业伙伴，以及关注资本对接、场景共建和科技企业加速的机构。": "The event is designed for startups, tech-leading enterprises, investment partners, Dongguan-Hong Kong industrial partners, and organizations interested in capital matching, scenario co-creation, and tech enterprise acceleration.",
+        "如何提交意向表达？": "How can I submit an expression of interest?",
+        "可通过页面中的香港科技园 EOI 表单链接或二维码提交意向表达，表单会收集参与类别、公司、姓名、职位和电邮等信息。": "Use the Hong Kong Science Park EOI form link or QR code on this page. The form collects participation category, company, name, title, and email information.",
+        "填写 CDIC 2026 意向表达，获取后续活动详情": "Submit the CDIC 2026 EOI to receive follow-up event details",
+        "EOI 表单将收集参与类别、公司名称、总部所在地、注册者姓名、职位和电邮等信息。若有疑问，可通过香港科技园表单页面列示的 capital@hkstp.org 联系主办方。": "The EOI form collects participation category, company name, headquarters location, registrant name, title, and email. For questions, contact the organizers via capital@hkstp.org as listed on the Hong Kong Science Park form page.",
+        "打开 EOI 表单": "Open EOI Form",
+        "联系 GBATC": "Contact GBATC",
+        "扫码或点击按钮提交意向表达": "Scan or click to submit your EOI",
+        "© 2026 粤港澳大湾区科技领军人才创新驱动中心": "© 2026 Greater Bay Area Tech Talent Innovation-Driven Center",
+        "返回 GBATC.org 首页": "Back to GBATC.org home",
+        "返回 GBATC 首页": "Back to GBATC home",
+        "活动页导航": "Event page navigation",
+        "语言切换": "Language switcher",
+        "活动时间与地点": "Event dates and venues",
+        "活动亮点数据": "Event highlight metrics",
+        "CDIC 2026 意向表达二维码": "CDIC 2026 EOI QR code",
+        "CDIC 2026 意向表达 EOI 二维码": "CDIC 2026 Expression of Interest QR code"
+      }
+    };
+
+    const metaContent = {
+      "zh-CN": {
+        title: "CDIC Teaser 2026 东莞站 | 大湾区（莞港）科技领军企业科创大会",
+        description: "2026共创共投产业加速峰会（CDIC Teaser）东莞站暨大湾区（莞港）科技领军企业科创大会，连接创始人、投资者和行业领袖，聚焦莞港智慧、联合投资、智能制造参访、场景落地和科技领军企业共同加速培育。",
+        keywords: "CDIC Teaser 2026, 共创共投产业加速峰会, 东莞站, 大湾区科技领军企业科创大会, 莞港产业协同, 香港科技园, GBATC, 东莞科创",
+        author: "粤港澳大湾区科技领军人才创新驱动中心",
+        siteName: "粤港澳大湾区科技领军人才创新驱动中心",
+        locale: "zh_CN",
+        imageAlt: "CDIC Teaser 2026 东莞站暨大湾区（莞港）科技领军企业科创大会"
+      },
+      "zh-Hant": {
+        title: "CDIC Teaser 2026 東莞站 | 大灣區（莞港）科技領軍企業科創大會",
+        description: "2026共創共投產業加速峰會（CDIC Teaser）東莞站暨大灣區（莞港）科技領軍企業科創大會，連接創始人、投資者和行業領袖，聚焦莞港智慧、聯合投資、智能製造參訪、場景落地和科技領軍企業共同加速培育。",
+        keywords: "CDIC Teaser 2026, 共創共投產業加速峰會, 東莞站, 大灣區科技領軍企業科創大會, 莞港產業協同, 香港科技園, GBATC, 東莞科創",
+        author: "粵港澳大灣區科技領軍人才創新驅動中心",
+        siteName: "粵港澳大灣區科技領軍人才創新驅動中心",
+        locale: "zh_HK",
+        imageAlt: "CDIC Teaser 2026 東莞站暨大灣區（莞港）科技領軍企業科創大會"
+      },
+      en: {
+        title: "CDIC Teaser 2026 Dongguan | GBA Tech Leaders Innovation Conference",
+        description: "CDIC Teaser 2026 Dongguan and the GBA Dongguan-Hong Kong Tech Leaders Innovation Conference connects founders, investors, and industry leaders around co-investment, smart manufacturing visits, scenario implementation, and tech enterprise acceleration.",
+        keywords: "CDIC Teaser 2026, Dongguan, GBA Tech Leaders Innovation Conference, Dongguan Hong Kong collaboration, Hong Kong Science Park, GBATC, co-investment",
+        author: "Greater Bay Area Tech Talent Innovation-Driven Center",
+        siteName: "Greater Bay Area Tech Talent Innovation-Driven Center",
+        locale: "en_US",
+        imageAlt: "CDIC Teaser 2026 Dongguan and GBA Dongguan-Hong Kong Tech Leaders Innovation Conference"
+      }
+    };
+
+    function translate(base, lang) {
+      if (lang === "zh-CN") return base;
+      return translations[lang]?.[base] || base;
+    }
+
+    function setMetaContent(selector, content) {
+      const element = document.querySelector(selector);
+      if (element) element.setAttribute("content", content);
+    }
+
+    const textNodes = [];
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        const parent = node.parentElement;
+        if (!parent || ["SCRIPT", "STYLE"].includes(parent.tagName)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      node.baseText = node.nodeValue;
+      textNodes.push(node);
+    }
+
+    const translatedAttributes = ["aria-label", "alt"];
+    const attributeNodes = Array.from(document.querySelectorAll("[aria-label], [alt]"));
+    attributeNodes.forEach((element) => {
+      translatedAttributes.forEach((attribute) => {
+        if (element.hasAttribute(attribute)) {
+          element.dataset[`base${attribute.replace("-", "")}`] = element.getAttribute(attribute);
+        }
+      });
+    });
+
+    function applyLanguage(lang) {
+      if (!metaContent[lang]) lang = "zh-CN";
+      const meta = metaContent[lang];
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.title = meta.title;
+      setMetaContent('meta[name="description"]', meta.description);
+      setMetaContent('meta[name="keywords"]', meta.keywords);
+      setMetaContent('meta[name="author"]', meta.author);
+      setMetaContent('meta[property="og:site_name"]', meta.siteName);
+      setMetaContent('meta[property="og:title"]', meta.title);
+      setMetaContent('meta[property="og:description"]', meta.description);
+      setMetaContent('meta[property="og:locale"]', meta.locale);
+      setMetaContent('meta[property="og:image:alt"]', meta.imageAlt);
+      setMetaContent('meta[name="twitter:title"]', meta.title);
+      setMetaContent('meta[name="twitter:description"]', meta.description);
+      setMetaContent('meta[name="twitter:image:alt"]', meta.imageAlt);
+
+      textNodes.forEach((node) => {
+        const base = node.baseText;
+        const trimmed = base.trim();
+        node.nodeValue = base.replace(trimmed, translate(trimmed, lang));
+      });
+
+      attributeNodes.forEach((element) => {
+        translatedAttributes.forEach((attribute) => {
+          if (!element.hasAttribute(attribute)) return;
+          const key = `base${attribute.replace("-", "")}`;
+          const base = element.dataset[key];
+          element.setAttribute(attribute, translate(base, lang));
+        });
+      });
+
+      langButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+      localStorage.setItem("gbatc-lang", lang);
+    }
+
+    langButtons.forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+    });
+
+    applyLanguage(localStorage.getItem("gbatc-lang") || "zh-CN");
+
     const scrollToHashTarget = () => {
       if (!window.location.hash) return;
       const target = document.getElementById(window.location.hash.slice(1));
